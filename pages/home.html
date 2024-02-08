@@ -25,8 +25,22 @@
         </section>
 	</header>
 
-    <main id="movieList">
-		
+    <main>
+		<section class="modal" style="display: none;">
+			<section class="modal-img"></section>
+			<section class="modal-info">
+				<h2 id="modal-title"></h2>
+				<p id="modal-description"></p>
+				<p id="modal-director"></p>
+				<p id="modal-actors"></p>
+				<p id="modal-genre"></p>
+				<p id="modal-rating"></p>
+				<p id="modal-year"></p>
+				<button class="add-to-favourites-btn">Add to favourites</button>
+				<button class="add-to-watched-btn">Add to watched</button>
+		</section>
+		<button class="sort-btn">Sort: Z->A</button>
+		<ul id="movie-list"></ul>
     </main>
 
     <footer id="footer">
