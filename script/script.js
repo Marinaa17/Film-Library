@@ -127,8 +127,7 @@ function createMovieElements(movie) {
     movieElement.innerHTML = `
         <img src="${movie.Poster}" alt="${movie.Title}">
         <h3>${movie.Title}</h3>
-        <p><strong>Year:</strong> ${movie.Year}</p>
-        <p><strong>Type:</strong> ${movie.Type}</p>
+        <p>${movie.Year} | ${movie.Type}</p>
         <button>Add to favourites</button>
         <button>Mark as watched</button>
     `;
