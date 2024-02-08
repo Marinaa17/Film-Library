@@ -1,3 +1,5 @@
 #movieList {
     color: #fff;
+    display: flex;
+    flex-wrap: wrap;
 }

@@ -1,28 +1,3 @@
-
-document.addEventListener('DOMContentLoaded', function () {
-    const btn = document.getElementById('signUp');
-    btn.addEventListener("click", () => {
-        validateAndRegister();
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    const btn = document.getElementById('logIn');
-    btn.addEventListener("click", () => {
-        loginUser();
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    
-    if (window.location.pathname === '/home.html') {
-
-        loadMovies();
-    }
-
-});
-
-
 function validateSignUp() {
 
     var passed = true;
@@ -125,3 +100,73 @@ function loginUser() {
     //    alert("You have logged in successfully!");
     //}
 }
+
+
+// Define the URL of the OMDb API
+const apiUrl = 'http://www.omdbapi.com/?s=movie&type=movie&apikey=ff43acd6';
+
+// Function to fetch movie data from the OMDb API
+async function fetchMovies() {
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        return data.Search; // Return an array of movie objects
+    } catch (error) {
+        console.error('Error fetching movies:', error);
+        return []; // Return an empty array if an error occurs
+    }
+}
+
+// Function to create HTML elements for each movie
+function createMovieElements(movie) {
+    const movieElement = document.createElement('section');
+    movieElement.classList.add('movie-section');
+    movieElement.innerHTML = `
+        <img src="${movie.Poster}" alt="${movie.Title}">
+        <h3>${movie.Title}</h3>
+        <p><strong>Year:</strong> ${movie.Year}</p>
+        <p><strong>Type:</strong> ${movie.Type}</p>
+        <button>Add to favourites</button>
+        <button>Mark as watched</button>
+    `;
+    return movieElement;
+}
+
+// Function to render movies on the page
+async function renderMovies() {
+    const movieList = document.getElementById('movieList');
+    const movies = await fetchMovies();
+    if (movies.length === 0) {
+        movieList.textContent = 'No movies found.';
+        return;
+    }
+    movieList.innerHTML = ''; // Clear previous movie elements
+    movies.forEach(movie => {
+        const movieElement = createMovieElements(movie);
+        movieList.appendChild(movieElement);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.location.pathname.includes('/home.html')) { // Check for home.html
+        renderMovies();
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('signUp');
+    btn.addEventListener("click", () => {
+        validateAndRegister();
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('logIn');
+    btn.addEventListener("click", () => {
+        loginUser();
+    });
+});
