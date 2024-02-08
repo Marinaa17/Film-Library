@@ -1,9 +1,39 @@
 h2 {
     color: #fff;
-    font-size: 32px;
+    text-align: center;
+    font-size: 44px;
 }
 
 p {
     color: #fff;
     font-size: 20px;
+}
+
+#movie-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 20px;
+}
+
+#movie-info section {
+    margin: 0px 20px;
+}
+
+#movie-info img {
+    border-radius: 10px;
+}
+
+#movie-info button {
+    padding: 10px;
+    background-color: #F3A712;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    font-size: 30px;
+}
+
+#info {
+    text-align: left;
 }
