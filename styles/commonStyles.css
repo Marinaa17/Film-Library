@@ -7,12 +7,12 @@ p {
 
 body {
     font-family: Arial, sans-serif;
-	background-color: #f0f0f0;
+	background-color: #1A1E25;
 	text-align: center;
 }
 
 #header {
-    background-color: #232323;
+    background-color: #2E3A6C; /*#29335C*/
     color: white;
     padding: 20px;
     display: flex;
@@ -51,7 +51,7 @@ body {
 }
 
 #navigation a:hover {
-    color: #ffd700; 
+    color: #F3A712; 
 }
 
 #search-bar {
@@ -66,9 +66,14 @@ body {
 
 #search-bar button {
     padding: 6px;
-    background-color: #ffd700;
+    background-color: #F3A712;
     color: #232323;
     border: none;
     cursor: pointer;
 }
 
+#footer {
+	background-color: #2E3A6C;
+	color: #fff;
+	padding: 10px;
+}
