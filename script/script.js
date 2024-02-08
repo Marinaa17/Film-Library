@@ -102,59 +102,54 @@ function loginUser() {
 }
 
 
-// Define the URL of the OMDb API
-const apiUrl = 'http://www.omdbapi.com/?s=movie&type=movie&apikey=ff43acd6';
+function addMovieToFavourites(movieId) {
+    // Fetch the existing favourites from favouriteMovies.json
+    fetch('../json/favouriteMovies.json')
+        .then(response => response.json())
+        .then(data => {
+            // Append the new movie ID to the existing favourites
+            data.push({ id: movieId });
 
-// Function to fetch movie data from the OMDb API
-async function fetchMovies() {
-    try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        return data.Search; // Return an array of movie objects
-    } catch (error) {
-        console.error('Error fetching movies:', error);
-        return []; // Return an empty array if an error occurs
-    }
+            // Convert the updated favourites to JSON string
+            const updatedData = JSON.stringify(data);
+
+            // Write the updated favourites back to the favouriteMovies.json file
+            return fetch('../json/favouriteMovies.json', {
+                method: 'PUT', // Use PUT method to replace the entire file
+                body: updatedData,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("Movie added to favourites successfully!");
+            } else {
+                console.error("Failed to add movie to favourites.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
 }
 
-// Function to create HTML elements for each movie
-function createMovieElements(movie) {
-    const movieElement = document.createElement('section');
-    movieElement.classList.add('movie-section');
-    movieElement.innerHTML = `
-        <img src="${movie.Poster}" alt="${movie.Title}">
-        <h3>${movie.Title}</h3>
-        <p><strong>Year:</strong> ${movie.Year}</p>
-        <p><strong>Type:</strong> ${movie.Type}</p>
-        <button>Add to favourites</button>
-        <button>Mark as watched</button>
-    `;
-    return movieElement;
-}
-
-// Function to render movies on the page
-async function renderMovies() {
-    const movieList = document.getElementById('movieList');
-    const movies = await fetchMovies();
-    if (movies.length === 0) {
-        movieList.textContent = 'No movies found.';
-        return;
-    }
-    movieList.innerHTML = ''; // Clear previous movie elements
-    movies.forEach(movie => {
-        const movieElement = createMovieElements(movie);
-        movieList.appendChild(movieElement);
-    });
-}
 
 document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname.includes('/home.html')) { // Check for home.html
-        renderMovies();
-    }
+    const addToFavoritesButtons = document.querySelectorAll('.add-to-favourites');
+    
+    addToFavoritesButtons.forEach(button => {
+        button.addEventListener("click", () => {           
+            alert("aaaaaaaaaaaaaaaaaaaaa");
+            const movieSection = button.closest('.movie-section');
+            const movieId = movieSection.getAttribute('id');
+
+
+            addMovieToFavourites(movieId);
+        });
+    });
 });
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
