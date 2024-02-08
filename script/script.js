@@ -161,36 +161,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const movieList = document.getElementById('movie-list');
-    const modal = document.createElement('div');
-    modal.id = 'myModal';
-    modal.classList.add('modal');
-    modal.innerHTML = `
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modal-title"></h2>
-            <p><strong>Year:</strong> <span id="modal-year"></span></p>
-            <p><strong>Director:</strong> <span id="modal-director"></span></p>
-            <p><strong>Runtime:</strong> <span id="modal-runtime"></span></p>
-            <p><strong>Plot:</strong> <span id="modal-plot"></span></p>
-            <img id="modal-poster" src="" alt="Movie Poster">
-        </div>
-    `;
-    document.body.appendChild(modal);
-
-    // Get the <span> element that closes the modal
-    const span = modal.querySelector('.close');
-
-    // Event listener for closing the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    // Event listener for clicking anywhere outside of the modal to close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
 
     // Function to fetch additional movie info from OMDB API
     async function fetchMovieInfo(title, year) {
@@ -219,14 +189,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const year = titleYear[1].slice(0, -1);
             const movieInfo = await fetchMovieInfo(title, year);
             if (movieInfo) {
-                // Display movie info in the popup modal
-                modal.style.display = "block";
-                document.getElementById('modal-title').textContent = movieInfo.Title;
-                document.getElementById('modal-year').textContent = movieInfo.Year;
-                document.getElementById('modal-director').textContent = movieInfo.Director;
-                document.getElementById('modal-runtime').textContent = movieInfo.Runtime;
-                document.getElementById('modal-plot').textContent = movieInfo.Plot;
-                document.getElementById('modal-poster').src = movieInfo.Poster;
+                const queryString = `?title=${encodeURIComponent(title)}&year=${encodeURIComponent(year)}`;
+                window.location.href = `info.html${queryString}`;
             } else {
                 alert('Failed to fetch movie info. Please try again later.');
             }
