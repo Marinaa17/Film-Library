@@ -95,60 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-//after clicking the "add to favourites" button on the more info page
-
-document.addEventListener('DOMContentLoaded', function () {
-    const addToFavoritesBtn = document.getElementById('add-to-favourites');
-    
-    addToFavoritesBtn.addEventListener("click", () => {
-        alert("Влезна в бутона");
-        addMovieToFavourites();
-    });
-});
-
-function addMovieToFavourites() {
-
-    const title = document.getElementById("title").value;
-    const year = document.getElementById("year").value;
-
-    //save this movie info in json file "favouriteMovies"
-    const movieInfo = {
-        title: title,
-        year: year
-    };
-
-    // Fetch existing data from favouriteMovies.json
-    fetch('../json/favouriteMovies.json')
-        .then(response => response.json())
-        .then(data => {
-            // Append new movie object to existing data
-            data.push(movieInfo);
-
-            // Convert updated data to JSON string
-            const updatedData = JSON.stringify(data);
-
-            // Write updated data back to favouriteMovies.json
-            return fetch('favouriteMovies.json', {
-                method: 'PUT', // Use PUT method to replace entire file
-                body: updatedData,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log("Movie added to favourites successfully!");
-            } else {
-                console.error("Failed to add movie to favourites.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-}
-//
-
 
 // Define the URL of the OMDb API
 //const apiUrl = 'http://www.omdbapi.com/?s=movie&type=movie&apikey=ff43acd6';
