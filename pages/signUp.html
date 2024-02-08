@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Library</title>
+    <link rel="stylesheet" href="./logInSignUpStyles.css">
+</head>
+
+<body>
+    <header id="header">
+        <h1>Welcome to Film Library!</h1>
+
+    </header>
+
+    <main>
+        <form id="registrationForm" class="modal-content animate" action="home.html" method="post">
+
+            <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="Avatar" class="avatar">
+            <h1 id="registrationHeader">Sign Up</h1>
+    
+            <section>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email" required>
+                <label class="error-message" id="emailErrorMessage"></label>
+    
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                <label class="error-message" id="passwordErrorMessage"></label>
+    
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                <label class="error-message" id="confirmPasswordErrorMessage"></label>
+
+            </section>
+
+            <label class="error-message" id="signUpErrorMessage"></label>
+            <button type="button" id="signUp">Sign up</button>
+            <p><a href="logIn.html">Already have an account?</a></p>
+
+        </form>
+    
+    </main>
+
+
+    <footer id="footer">
+		&copy; 2024 by Ani&Marina.
+	</footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+body,
+h1,
+p {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+	background-color: #1A1E25;
+	text-align: center;
+}
+
+#header {
+    background-color: #2E3A6C; /*#29335C*/
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header h1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/*#navigation {
+	
+}*/
+
+#navigation-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+#navigation li {
+    position: relative;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 20px;
+}
+
+#navigation a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#navigation a:hover {
+    color: #F3A712; 
+}
+
+#search-bar {
+    display: flex;
+}
+
+#search-bar input {
+    padding: 5px;
+    margin-right: 5px;
+    width: 500px;
+}
+
+#search-bar button {
+    padding: 6px;
+    background-color: #F3A712;
+    color: #232323;
+    border: none;
+    cursor: pointer;
+}
+
+#movieList {
+    color: #fff;
+}
+
+
+#footer {
+	background-color: #2E3A6C;
+	color: #fff;
+	padding: 10px;
+}
