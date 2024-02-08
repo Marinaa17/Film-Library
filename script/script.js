@@ -98,9 +98,10 @@ document.addEventListener('DOMContentLoaded', function () {
 //after clicking the "add to favourites" button on the more info page
 
 document.addEventListener('DOMContentLoaded', function () {
-    const addToFavoritesBtn = document.getElementById('.add-to-favourites');
+    const addToFavoritesBtn = document.getElementById('add-to-favourites');
     
-    btn.addEventListener("click", () => {
+    addToFavoritesBtn.addEventListener("click", () => {
+        alert("Влезна в бутона");
         addMovieToFavourites();
     });
 });
