@@ -72,6 +72,20 @@ body {
     cursor: pointer;
 }
 
+#redirecting-btns {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
+#redirecting-btns button {
+    padding: 10px;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+}
+
 #footer {
 	background-color: #2E3A6C;
 	color: #fff;
