@@ -31,81 +31,96 @@ document.addEventListener('DOMContentLoaded', async function () {
             <p id="director"><strong>Director:</strong> ${movieInfo.Director}</p>
             <p id="actors"><strong>Actors:</strong> ${movieInfo.Actors}</p>
             <p id="plot"><strong>Plot:</strong> ${movieInfo.Plot}</p>
-            <button id="add-to-favourites">Add to favourites</button>
+            <button id="toggle-favourites" class="${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'remove-from-favourites' : 'add-to-favourites'}">${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'Remove from favourites' : 'Add to favourites'}</button>
+            <button id="toggle-watched" class="${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'remove-from-watched' : 'add-to-watched'}">${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'Remove from watched' : 'Add to watched'}</button>
         `;
-        if (movieInFavourites(movieInfo.Title, movieInfo.Year)) {
-            document.getElementById('info').innerHTML += `
-                <button id="remove-from-favourites">Remove from favourites</button>
-            `;
-        } else {
-            document.getElementById('info').innerHTML += `
-                <button id="add-to-favourites">Add to favourites</button>
-            `;
-        }
         
-        // Optionally, you can show/hide the movie details section if needed
-        //document.getElementById('info').style.display = 'block';
+        // Event listener for "Add to favourites" or "Remove from favourites" button
+        const toggleFavouritesBtn = document.getElementById('toggle-favourites');
+        toggleFavouritesBtn.addEventListener('click', function () {
+            toggleFavourites(movieInfo.Title, movieInfo.Year, toggleFavouritesBtn);
+        });
+
+        // Event listener for "Add to watched" or "Remove from watched" button
+        const toggleWatchedBtn = document.getElementById('toggle-watched');
+        toggleWatchedBtn.addEventListener('click', function () {
+            toggleWatched(movieInfo.Title, movieInfo.Year, toggleWatchedBtn);
+        });
     } else {
         alert('Failed to fetch movie info. Please try again later.');
-    }
-
-    // Event listener for "Add to favourites" or "Remove from favourites" button
-    const addToFavoritesBtn = document.getElementById('add-to-favourites');
-    const removeFromFavoritesBtn = document.getElementById('remove-from-favourites');
-
-    if (addToFavoritesBtn) {
-        addToFavoritesBtn.addEventListener('click', function () {
-            addMovieToFavourites(movieInfo.Title, movieInfo.Year);
-            // Add your logic to handle adding to favourites here
-        });
-    } else if (removeFromFavoritesBtn){
-        removeFromFavoritesBtn.addEventListener('click', function () {
-            removeMovieFromFavourites(movieInfo.Title, movieInfo.Year);
-            // Add your logic to handle adding to favourites here
-        });
     }
 });
 
 function movieInFavourites(title, year) {
-    // Retrieve movies from localStorage
-    const movies = JSON.parse(localStorage.getItem('movies')) || [];
-    
-    // Check if any movie in the array matches the given title and year
+    const movies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
     return movies.some(movie => movie.title === title && movie.year === year);
 }
 
+function movieInWatched(title, year) {
+    const movies = JSON.parse(localStorage.getItem('watched-movies')) || [];
+    return movies.some(movie => movie.title === title && movie.year === year);
+}
+
+function toggleFavourites(title, year, button) {
+    if (button.classList.contains('add-to-favourites')) {
+        addMovieToFavourites(title, year);
+        button.textContent = 'Remove from favourites';
+        button.classList.remove('add-to-favourites');
+        button.classList.add('remove-from-favourites');
+    } else if (button.classList.contains('remove-from-favourites')) {
+        removeMovieFromFavourites(title, year);
+        button.textContent = 'Add to favourites';
+        button.classList.remove('remove-from-favourites');
+        button.classList.add('add-to-favourites');
+    }
+}
+
+function toggleWatched(title, year, button) {
+    if (button.classList.contains('add-to-watched')) {
+        addMovieToWatched(title, year);
+        button.textContent = 'Remove from watched';
+        button.classList.remove('add-to-watched');
+        button.classList.add('remove-from-watched');
+    } else if (button.classList.contains('remove-from-watched')) {
+        removeMovieFromWatched(title, year);
+        button.textContent = 'Add to watched';
+        button.classList.remove('remove-from-watched');
+        button.classList.add('add-to-watched');
+    }
+}
+
 function addMovieToFavourites(title, year) {
-
-    const movieInfo = {
-        title: title,
-        year: year
-    };
-
-    // Check if movieInfo is not null or undefined
+    const movieInfo = { title: title, year: year };
     if (movieInfo) {
-        // Retrieve existing movies from localStorage or initialize an empty array
-        let movies = JSON.parse(localStorage.getItem('movies')) || [];
-
+        let movies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
         movies.push(movieInfo);
-
-        localStorage.setItem('movies', JSON.stringify(movies));
+        localStorage.setItem('favourite-movies', JSON.stringify(movies));
     }
 }
 
 function removeMovieFromFavourites(title, year) {
-
-    // Retrieve movies from localStorage
-    const movies = JSON.parse(localStorage.getItem('movies')) || [];
-    
-    // Find index of movie to remove
+    const movies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
     const indexToRemove = movies.findIndex(movie => movie.title === title && movie.year === year);
-
-    // If movie found, remove it
     if (indexToRemove !== -1) {
-        movies.splice(indexToRemove, 1); // Remove the movie from the array
-        localStorage.setItem('movies', JSON.stringify(movies)); // Update localStorage
-        console.log('Movie removed from favorites:', title, year);
-    } else {
-        console.log('Movie not found in favorites:', title, year);
+        movies.splice(indexToRemove, 1);
+        localStorage.setItem('favourite-movies', JSON.stringify(movies));
+    }
+}
+
+function addMovieToWatched(title, year) {
+    const movieInfo = { title: title, year: year };
+    if (movieInfo) {
+        let movies = JSON.parse(localStorage.getItem('watched-movies')) || [];
+        movies.push(movieInfo);
+        localStorage.setItem('watched-movies', JSON.stringify(movies));
+    }
+}
+
+function removeMovieFromWatched(title, year) {
+    const movies = JSON.parse(localStorage.getItem('watched-movies')) || [];
+    const indexToRemove = movies.findIndex(movie => movie.title === title && movie.year === year);
+    if (indexToRemove !== -1) {
+        movies.splice(indexToRemove, 1);
+        localStorage.setItem('watched-movies', JSON.stringify(movies));
     }
 }

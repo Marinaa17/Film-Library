@@ -1,47 +1,33 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('../json/favouriteMovies.json')
-    .then(response => response.json())
-    .then(data => {
-        var favoutieMoviesMain = document.getElementById('favourite-movies');
-        if (!data || data.length === 0) {
-            var message = document.createElement('p');
-            message.textContent = "You don't have any favourite movies yet.";
-            favoutieMoviesMain.appendChild(message);
-            return;
-        }
-        var favoutieMoviesList = document.createElement('ul');
-        data.forEach(favMovie => {
-            var url = `https://www.omdbapi.com/?t=${favMovie.title}&y=${favMovie.year}&apikey=ff43acd6`;
+    const favoutieMoviesMain = document.getElementById('favourite-movies');
+    const favouriteMovies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
 
-            fetch(url)
+    if (!favouriteMovies || favouriteMovies.length === 0) {
+        const message = document.createElement('p');
+        message.textContent = "You don't have any favourite movies yet.";
+        favoutieMoviesMain.appendChild(message);
+        return;
+    }
+
+    const favoutieMoviesList = document.createElement('ul');
+    favouriteMovies.forEach(favMovie => {
+        const url = `https://www.omdbapi.com/?t=${favMovie.title}&y=${favMovie.year}&apikey=ff43acd6`;
+
+        fetch(url)
             .then(response => response.json())
             .then(movie => {
                 const listItem = document.createElement('li');
                 listItem.textContent = `${movie.Title} (${movie.Year})`;
-                var buttonMoreInfo = document.createElement('button');
+                const buttonMoreInfo = document.createElement('button');
                 buttonMoreInfo.textContent = 'More info';
                 buttonMoreInfo.classList.add('more-info-btn');
                 listItem.appendChild(buttonMoreInfo);
                 favoutieMoviesList.appendChild(listItem);
-
-                // // Assign event listeners to the buttons
-                // listItem.querySelector('.remove-from-favourites').addEventListener('click', function () {
-                //     // Implement removal logic
-                //     console.log('Remove from favourites button clicked.');
-                // });
-
-                // listItem.querySelector('.mark-as-watched').addEventListener('click', function () {
-                //     // Implement mark as watched logic
-                //     console.log('Mark as watched button clicked.');
-                // });
             })
             .catch(error => {
                 console.error('Error fetching movie details:', error);
             });
-        });
-        favoutieMoviesMain.appendChild(favoutieMoviesList); // Append the list to the DOM
-    })
-    .catch(error => {
-        console.error('Error loading favorites:', error);
     });
+
+    favoutieMoviesMain.appendChild(favoutieMoviesList); // Append the list to the DOM
 });
