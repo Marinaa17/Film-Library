@@ -99,12 +99,12 @@ a {
 	padding: 10px;
 }
 
-#movie-list {
+ul {
     padding: 0px;
     list-style-type: none;
 }
 
-#movie-list li {
+ul li {
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
@@ -113,7 +113,7 @@ a {
     text-align: center;
 }
 
-#movie-list li:hover {
+ul li:hover {
     background-color: #F3A712;
     color: #232323;
     cursor: pointer;

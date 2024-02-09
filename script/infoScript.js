@@ -33,17 +33,18 @@ document.addEventListener('DOMContentLoaded', async function () {
             <p id="plot"><strong>Plot:</strong> ${movieInfo.Plot}</p>
             <button id="add-to-favourites">Add to favourites</button>
         `;
-        if (movieExists(movieInfo.Title, movieInfo.Year)) {
-            document.getElementById('info').innerHTML = `
-            <button id="remove-from-favourites">Remove from favourites</button>
-        `;
+        if (movieInFavourites(movieInfo.Title, movieInfo.Year)) {
+            document.getElementById('info').innerHTML += `
+                <button id="remove-from-favourites">Remove from favourites</button>
+            `;
         } else {
-            document.getElementById('info').innerHTML = `
-            <button id="add-to-favourites">Add to favourites</button>
-        `;
+            document.getElementById('info').innerHTML += `
+                <button id="add-to-favourites">Add to favourites</button>
+            `;
         }
+        
         // Optionally, you can show/hide the movie details section if needed
-        document.getElementById('info').style.display = 'block';
+        //document.getElementById('info').style.display = 'block';
     } else {
         alert('Failed to fetch movie info. Please try again later.');
     }
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 
-function movieExists(title, year) {
+function movieInFavourites(title, year) {
     // Retrieve movies from localStorage
     const movies = JSON.parse(localStorage.getItem('movies')) || [];
     
