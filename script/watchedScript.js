@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('../json/favouriteMovies.json')
+    fetch('../json/watchedMovies.json')
     .then(response => response.json())
     .then(data => {
-        var favoutieMoviesMain = document.getElementById('favourite-movies');
+        var favoutieMoviesMain = document.getElementById('watched-movies');
         if (!data || data.length === 0) {
             var message = document.createElement('p');
             message.textContent = "You don't have any favourite movies yet.";
