@@ -23,7 +23,7 @@ a {
 
 #header {
     background-color: #2E3A6C; /*#29335C*/
-    color: white;
+    color: #fff;
     padding: 20px;
     display: flex;
     justify-content: space-between;

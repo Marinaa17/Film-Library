@@ -1,5 +1,9 @@
 h2 {
+    background-color: #2E3A6C;
     color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 0px 20px 20px 20px;
     text-align: center;
     font-size: 44px;
 }
@@ -25,15 +29,59 @@ p {
     border-radius: 10px;
 }
 
-#movie-info button {
+#buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px;
+}
+
+#buttons button {
     padding: 10px;
     background-color: #F3A712;
     color: #000;
     border: none;
     border-radius: 10px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 #info {
     text-align: left;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#save-comment-btn { /* Защо не работи??? */
+    padding: 10px;
+    background-color: #2E3A6C;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+}
+
+#comment-input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    width: 400px;
+}
+
+#comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+}
+
+#comments-list li {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #2E3A6C;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 }
