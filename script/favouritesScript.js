@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const favoutieMoviesMain = document.getElementById('watched-movies');
-    const favouriteMovies = JSON.parse(localStorage.getItem('watched-movies')) || [];
+    const favoutieMoviesMain = document.getElementById('favourite-movies');
+    const favouriteMovies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
 
     if (!favouriteMovies || favouriteMovies.length === 0) {
         const message = document.createElement('p');
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const favoutieMoviesList = document.createElement('ul');
-    favoutieMoviesList.setAttribute('id', 'watched-movies-list');
+    favoutieMoviesList.setAttribute('id', 'favourite-movies-list');
     favouriteMovies.forEach(favMovie => {
         const url = `https://www.omdbapi.com/?t=${favMovie.title}&y=${favMovie.year}&apikey=ff43acd6`;
 
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    const movieList = document.getElementById('watched-movies-list');
+    const movieList = document.getElementById('favourite-movies-list');
 
     // Function to fetch additional movie info from OMDB API
     async function fetchMovieInfo(title, year) {
