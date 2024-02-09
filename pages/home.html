@@ -14,10 +14,11 @@
 	<header id="header">
 		<h1><a href="home.html">Film Library</a></h1>
 
-		<form id="search-bar" action="#" method="get">
+		<!-- Засега скривам търсачката, защото не е функционална и не ни се иска в задачата -->
+		<!-- <form id="search-bar" action="#" method="get">
             <input type="text" name="search" placeholder="Search...">
             <button type="submit">Search</button>
-        </form>
+        </form> -->
 
         <section id="redirecting-btns">
             <button id="btn-favourites"><a href="favourites.html">Favourites</a></button>
@@ -26,7 +27,17 @@
 	</header>
 
     <main>
-		<button class="sort-btn">Sort: Z->A</button>
+		<!-- <button class="sort-btn">Sort: Z->A</button> -->
+		<section class="dropdown">
+			<select>
+			  <option value="az">A->Z</option>
+			  <option value="za">Z->A</option>
+			  <option value="newest">Newest->Oldest</option>
+			  <option value="oldest">Oldest->Newest</option>
+			</select>
+		  </section>
+		  
+		
 		<ul id="movie-list"></ul>
     </main>
 

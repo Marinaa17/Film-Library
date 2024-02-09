@@ -12,6 +12,10 @@ body {
 	text-align: center;
 }
 
+main {
+    min-height: 80vh; /* може да се промени*/
+}
+
 a {
     text-decoration: none;
     color: #fff;
@@ -30,10 +34,6 @@ a {
     font-size: 30px;
     font-weight: bold;
 }
-
-/*#navigation {
-	
-}*/
 
 #navigation-tabs {
     list-style: none;
@@ -107,19 +107,34 @@ ul {
 
 ul li {
     margin: 10px;
-    padding: 10px;
+    padding: 10px 30px;
     border-radius: 10px;
-    background-color: #2E3A6C;
+    background-color: transparent;
     color: #fff;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 }
 
 ul li:hover {
+    background-color: #2E3A6C;
+    color: #fff;
+}
+
+ul button {
+    padding: 5px 10px;
     background-color: #F3A712;
     color: #232323;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
     cursor: pointer;
 }
 
+ul button:hover {
+    background-color: #fff;
+    color: #2E3A6C;
+}
 
 
 /* .movie-section {

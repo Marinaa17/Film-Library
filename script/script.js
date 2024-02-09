@@ -22,18 +22,64 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error fetching movies:', error));
 });
 
+//НЕ ТРИЙ!!!!
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     const movieList = document.getElementById('movie-list');
+//     const sortButton = document.querySelector('.sort-btn');
+//     let ascendingOrder = false;
+
+//     // Function to sort the movie list
+//     function sortMovieList(order) {
+//         const movies = Array.from(movieList.children);
+//         movies.sort((a, b) => {
+//             const titleA = a.textContent.toLowerCase();
+//             const titleB = b.textContent.toLowerCase();
+//             return order ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
+//         });
+
+//         // Clear the current movie list
+//         movieList.innerHTML = '';
+
+//         // Append the sorted movies to the list
+//         movies.forEach(movie => {
+//             movieList.appendChild(movie);
+//         });
+//     }
+//     // Toggle sorting order when the button is clicked
+//     sortButton.addEventListener('click', function () {
+//         sortMovieList(ascendingOrder);
+//         ascendingOrder = !ascendingOrder;
+//         if (ascendingOrder) {
+//             sortButton.textContent = 'Sort A->Z';
+//         } else {
+//             sortButton.textContent = 'Sort Z->A';
+//         }
+//     });
+// });
+
+//НЕ ТРИЙ ГОРНОТО!!!! Може да видиш дали ще намериш бъга тук
+
 document.addEventListener('DOMContentLoaded', function () {
+    const dropdown = document.querySelector('.dropdown');
     const movieList = document.getElementById('movie-list');
-    const sortButton = document.querySelector('.sort-btn');
-    let ascendingOrder = false;
 
     // Function to sort the movie list
     function sortMovieList(order) {
         const movies = Array.from(movieList.children);
+
         movies.sort((a, b) => {
-            const titleA = a.textContent.toLowerCase();
-            const titleB = b.textContent.toLowerCase();
-            return order ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
+            const titleA = a.textContent.trim().toLowerCase();
+            const titleB = b.textContent.trim().toLowerCase();
+            if (order === 'az') {
+                return titleA.localeCompare(titleB);
+            } else if (order === 'za') {
+                return titleB.localeCompare(titleA);
+            } else if (order === 'newest') {
+                return parseInt(getYearFromTitle(b)) - parseInt(getYearFromTitle(a));
+            } else if (order === 'oldest') {
+                return parseInt(getYearFromTitle(a)) - parseInt(getYearFromTitle(b));
+            }
         });
 
         // Clear the current movie list
@@ -44,17 +90,27 @@ document.addEventListener('DOMContentLoaded', function () {
             movieList.appendChild(movie);
         });
     }
-    // Toggle sorting order when the button is clicked
-    sortButton.addEventListener('click', function () {
-        sortMovieList(ascendingOrder);
-        ascendingOrder = !ascendingOrder;
-        if (ascendingOrder) {
-            sortButton.textContent = 'Sort A->Z';
-        } else {
-            sortButton.textContent = 'Sort Z->A';
-        }
+
+    // Function to extract year from title
+    function getYearFromTitle(movie) {
+        const title = movie.textContent.trim();
+        const yearStartIndex = title.lastIndexOf('(') + 1;
+        const yearEndIndex = title.lastIndexOf(')');
+        const yearString = title.substring(yearStartIndex, yearEndIndex);
+        return yearString;
+    }
+
+    // Event listener for dropdown selection
+    dropdown.addEventListener('change', function () {
+        const selectedOption = dropdown.value;
+        sortMovieList(selectedOption);
     });
+
+    // Initial sort based on default option
+    sortMovieList('az');
 });
+
+  
 
 document.addEventListener('DOMContentLoaded', function () {
     const movieList = document.getElementById('movie-list');
