@@ -8,16 +8,27 @@ h2 {
     font-size: 44px;
 }
 
+h3 {
+    color: #fff;
+    font-size: 30px;
+}
+
 p {
     color: #fff;
     font-size: 20px;
 }
 
+button {
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
 #movie-info {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 50px;
     margin: 20px;
 }
 
@@ -29,6 +40,30 @@ p {
     border-radius: 10px;
 }
 
+#info-section {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+
+#comments-section {
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
+    justify-content: left;
+}
+
+#comment-textarea {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#characters-count {
+    text-align: right;
+}
+
 #buttons {
     display: flex;
     flex-direction: row;
@@ -38,11 +73,8 @@ p {
 }
 
 #buttons button {
-    padding: 10px;
     background-color: #F3A712;
     color: #000;
-    border: none;
-    border-radius: 10px;
     font-size: 20px;
 }
 
@@ -53,12 +85,11 @@ p {
     flex-direction: column;
 }
 
-#save-comment-btn { /* Защо не работи??? */
-    padding: 10px;
+#save-comment-btn {
     background-color: #2E3A6C;
     color: #fff;
-    border: none;
     font-size: 16px;
+    height: 50px;
 }
 
 #comment-input {
@@ -66,7 +97,9 @@ p {
     font-size: 16px;
     border-radius: 10px;
     border: none;
-    width: 400px;
+    width: 500px;
+    resize: none;
+    font-family: inherit;
 }
 
 #comments-list {

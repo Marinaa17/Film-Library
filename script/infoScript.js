@@ -164,13 +164,21 @@ document.addEventListener('DOMContentLoaded', async function () {
                 <button id="toggle-favourites" class="${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'remove-from-favourites' : 'add-to-favourites'}">${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'Remove from favourites' : 'Add to favourites'}</button>
                 <button id="toggle-watched" class="${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'remove-from-watched' : 'add-to-watched'}">${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'Remove from watched' : 'Add to watched'}</button>
             </section>
-            <section id="comments-section" style="display: ${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'block' : 'none'};">
-                <textarea id="comment-input" placeholder="Add a comment (Max 200 characters)" maxlength="200"></textarea>
-                <button id="save-comment-btn">Save Comment</button>
-                <h3>Comments</h3>
-                <ul id="comments-list"></ul>
-            </section>
         `;
+        var documentMain = document.getElementById('movie-info');
+        documentMain.innerHTML += `
+        <h3>Leave a comment</h3>
+        <section id="leave-comment-section" style="display: ${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'flex' : 'none'};">
+            <section id="comment-textarea">
+                <textarea id="comment-input" placeholder="Add a comment (Max 200 characters)" maxlength="200" rows="4"></textarea>
+                <div id="characters-count">0/200</div>
+            </section>
+            <button id="save-comment-btn">Save Comment</button>
+        </section>
+        <section id="comments-section" style="display: ${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'flex' : 'none'};">
+            <h3>Comments</h3>
+            <ul id="comments-list"></ul>
+            </section>`;
 
         // Event listener for "Add to favourites" or "Remove from favourites" button
         const toggleFavouritesBtn = document.getElementById('toggle-favourites');
@@ -191,6 +199,13 @@ document.addEventListener('DOMContentLoaded', async function () {
             saveComment(movieInfo.Title, movieInfo.Year);
         });
 
+        const commentInput = document.getElementById('comment-input');
+
+        commentInput.addEventListener('input', function () {
+            const charactersCount = document.getElementById('characters-count');
+            charactersCount.textContent = `${commentInput.value.length}/200`;
+        });
+
         // Display existing comments if the movie is in favorites
         if (movieInFavourites(movieInfo.Title, movieInfo.Year)) {
             displayComments(movieInfo.Title, movieInfo.Year);
@@ -199,6 +214,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         alert('Failed to fetch movie info. Please try again later.');
     }
 });
+
 
 function toggleCommentSection(title, year) {
     const commentSection = document.getElementById('comments-section');
@@ -292,6 +308,7 @@ function saveComment(title, year) {
             // Add comment to the movie
             movies[movieIndex].comments = movies[movieIndex].comments || [];
             movies[movieIndex].comments.push({ author: 'User', date: new Date().toISOString(), text: comment });
+            //Tova trqbva da stane s username-a na user-a
             // Update localStorage
             localStorage.setItem('favourite-movies', JSON.stringify(movies));
             // Clear input field
