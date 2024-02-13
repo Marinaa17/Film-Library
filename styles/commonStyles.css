@@ -19,6 +19,8 @@ main {
 a {
     text-decoration: none;
     color: #fff;
+    height: inherit;
+    width: inherit;
 }
 
 #header {
@@ -28,6 +30,8 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
 }
 
 #header h1 {
@@ -80,18 +84,81 @@ a {
     cursor: pointer;
 }
 
-#redirecting-btns {
+/* Initially hide the burger menu contents */
+#burger-menu, #burger-menu-icon {
+    display: none;
+}
+
+/* Media query to show/hide burger menu based on screen width */
+@media screen and (max-width: 600px) {
+    #main-nav {
+        display: none;
+    }
+
+    #burger-menu-icon {
+        position: fixed;
+        top: 20px; /* Adjust the top position as needed */
+        right: 20px; /* Adjust the right position as needed */
+        display: block;
+        cursor: pointer;
+        z-index: 1001; /* Ensure the burger icon is above the menu */
+    }
+
+    #burger-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        width: 50%;
+        background-color: #2E3A6C;
+        padding: 60px 0px;
+        z-index: 1000;
+        transform: translateX(200%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    #burger-menu.active {
+        transform: translateX(100%);
+    }
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+/* Active state for overlay */
+#overlay.active {
+    display: block; /* Show the overlay when the burger menu is active */
+}
+
+.redirecting-btns {
     display: flex;
     justify-content: right;
     gap: 10px;
 }
 
-#redirecting-btns button {
+.redirecting-btns button {
     padding: 10px;
     background-color: transparent;
-    color: #fff;
     border: none;
     font-size: 16px;
+}
+
+.redirecting-btns button:hover {
+    background-color: #1f2748;
+    cursor: pointer;
 }
 
 #footer {
@@ -108,17 +175,20 @@ ul {
 ul li {
     margin: 10px;
     padding: 10px 30px;
-    border-radius: 10px;
     background-color: transparent;
     color: #fff;
     display: flex;
+    flex-direction: row;
+    gap: 20px;
     justify-content: space-between;
     align-items: baseline;
+    text-align: left;
 }
 
 ul li:hover {
     background-color: #2E3A6C;
     color: #fff;
+    border-radius: 10px;
 }
 
 ul button {
@@ -129,6 +199,7 @@ ul button {
     border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
+    min-width: 100px;
 }
 
 ul button:hover {

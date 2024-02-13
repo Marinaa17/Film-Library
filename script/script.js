@@ -22,6 +22,15 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error fetching movies:', error));
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Toggle the active class on burger menu click
+    document.getElementById('burger-menu-icon').addEventListener('click', function () {
+        document.getElementById('burger-menu').classList.toggle('active');
+        document.getElementById('overlay').classList.toggle('active');
+    });
+});
+
+
 //НЕ ТРИЙ!!!!
 
 // document.addEventListener('DOMContentLoaded', function () {
