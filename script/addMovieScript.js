@@ -116,7 +116,6 @@ function addMovieToLocalStorage(newMovie) {
         } else {
             alert('This movie already exists.');
         }
-    } catch (error) {
         console.error('Error adding movie to local storage array:', error);
     }
 }

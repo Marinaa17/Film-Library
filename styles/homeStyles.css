@@ -1,23 +1,10 @@
-/* Style the dropdown */
-.dropdown a {
-    display: block;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-  }
-  
-  /* Change the background color of dropdown items on hover */
-  .dropdown a:hover {
-    background-color: #f1f1f1;
-  }
-  
-  /* Style the dropdown items when dropdown is open */
-  .dropdown.active a {
-    display: block;
-  }
-  
-  /* Hide dropdown items by default */
-  .dropdown a {
-    display: none;
-  }
-  
+select {
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+}

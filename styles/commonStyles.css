@@ -13,25 +13,32 @@ body {
 }
 
 main {
-    min-height: 80vh; /* може да се промени*/
+    min-height: 80vh;
+    font-size: 18px;
 }
 
 a {
     text-decoration: none;
     color: #fff;
+    height: inherit;
+    width: inherit;
 }
 
 #header {
-    background-color: #2E3A6C; /*#29335C*/
+    background-color: #2E3A6C;
     color: #fff;
-    padding: 20px;
+    padding: 0px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 #header h1 {
-    font-size: 30px;
+    font-size: 44px;
+    padding: 20px 0px;
     font-weight: bold;
 }
 
@@ -49,49 +56,95 @@ a {
 	margin-right: 20px;
 }
 
-#navigation a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: color 0.3s ease;
+#burger-menu, #burger-menu-icon {
+    display: none;
 }
 
-#navigation a:hover {
-    color: #F3A712; 
+#burger-menu-icon{
+    font-size: 30px;
 }
 
-#search-bar {
-    display: flex;
+@media screen and (max-width: 900px) {
+    #logout{
+        display: none;
+    }
+
+    #main-nav {
+        display: none;
+    }
+
+    #burger-menu-icon {
+        position: fixed;
+        right: 20px; 
+        display: block;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    #burger-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: fixed;
+        inset: 0;
+        height: 100%;
+        width: 50%;
+        background-color: #2E3A6C;
+        padding: 90px 0px;
+        z-index: 1000;
+        transform: translateX(200%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    #burger-menu.active {
+        transform: translateX(100%);
+    }
+
+    .redirecting-btns {
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
+    }
+
+    .redirecting-btns a:hover {
+        border-radius: 0;
+    }
+
+    a {
+        height: auto;
+        width: auto;
+    }
 }
 
-#search-bar input {
-    padding: 5px;
-    margin-right: 5px;
-    width: auto;
-    max-width: 500px;
-    min-width: 200px;
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
 }
 
-#search-bar button {
-    padding: 6px;
-    background-color: #F3A712;
-    color: #232323;
-    border: none;
-    cursor: pointer;
+#overlay.active {
+    display: block;
 }
 
-#redirecting-btns {
+.redirecting-btns {
     display: flex;
     justify-content: right;
-    gap: 10px;
 }
 
-#redirecting-btns button {
-    padding: 10px;
-    background-color: transparent;
-    color: #fff;
-    border: none;
-    font-size: 16px;
+.redirecting-btns a {
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.redirecting-btns a:hover {
+    background-color: #1f2748;
+    cursor: pointer;
 }
 
 #footer {
@@ -108,88 +161,34 @@ ul {
 ul li {
     margin: 10px;
     padding: 10px 30px;
-    border-radius: 10px;
     background-color: transparent;
     color: #fff;
     display: flex;
+    flex-direction: row;
+    gap: 20px;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
+    text-align: left;
 }
 
 ul li:hover {
     background-color: #2E3A6C;
     color: #fff;
+    border-radius: 10px;
 }
 
 ul button {
-    padding: 5px 10px;
+    padding: 10px 20px;
     background-color: #F3A712;
     color: #232323;
     border: none;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
+    min-width: 120px;
 }
 
 ul button:hover {
     background-color: #fff;
     color: #2E3A6C;
 }
-
-
-/* .movie-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    margin: 10px auto;
-    padding: 15px;
-    width: 160px;
-    background-color:#2E3A6C;
-    color: #fff;
-}
-
-.movie-section img {
-    width: 150px;
-    height: 230px;
-    border-radius: 5px;
-    box-shadow: #242b36 0px 0px 10px;
-}
-
-.movie-section h3 {
-    font-size: 16px;
-    height: 40px;
-    overflow: hidden;
-    margin: 0px;
-}
-
-.movie-section p {
-    
-    font-size: 14px;
-}
-
-.movie-section button {
-    padding: 10px;
-    width: 140px;
-    background-color: #F3A712;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    box-shadow: #242b36 0px 0px 10px;
-}
-
-.movie-section button:hover {
-    background-color: #fff;
-    cursor: pointer;
-}
-
-.hidden-info {
-    display: none;
-}
-
-#movieList {
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-} */
