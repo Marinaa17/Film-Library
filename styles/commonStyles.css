@@ -26,7 +26,7 @@ a {
 #header {
     background-color: #2E3A6C; /*#29335C*/
     color: #fff;
-    padding: 20px;
+    padding: 0px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,7 +35,8 @@ a {
 }
 
 #header h1 {
-    font-size: 30px;
+    font-size: 44px;
+    padding: 20px 0px;
     font-weight: bold;
 }
 
@@ -53,7 +54,7 @@ a {
 	margin-right: 20px;
 }
 
-#navigation a {
+/* #navigation a {
     text-decoration: none;
     color: white;
     font-weight: bold;
@@ -62,9 +63,9 @@ a {
 
 #navigation a:hover {
     color: #F3A712; 
-}
+} */
 
-#search-bar {
+/* #search-bar {
     display: flex;
 }
 
@@ -82,11 +83,15 @@ a {
     color: #232323;
     border: none;
     cursor: pointer;
-}
+} */
 
 /* Initially hide the burger menu contents */
 #burger-menu, #burger-menu-icon {
     display: none;
+}
+
+#burger-menu-icon{
+    font-size: 30px;
 }
 
 /* Media query to show/hide burger menu based on screen width */
@@ -97,7 +102,6 @@ a {
 
     #burger-menu-icon {
         position: fixed;
-        top: 20px; /* Adjust the top position as needed */
         right: 20px; /* Adjust the right position as needed */
         display: block;
         cursor: pointer;
@@ -116,7 +120,7 @@ a {
         height: 100%;
         width: 50%;
         background-color: #2E3A6C;
-        padding: 60px 0px;
+        padding: 90px 0px;
         z-index: 1000;
         transform: translateX(200%);
         transition: transform 0.3s ease-in-out;
@@ -124,6 +128,21 @@ a {
 
     #burger-menu.active {
         transform: translateX(100%);
+    }
+
+    .redirecting-btns {
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
+    }
+
+    .redirecting-btns a:hover {
+        border-radius: 0;
+    }
+
+    a {
+        height: auto;
+        width: auto;
     }
 }
 
@@ -146,17 +165,15 @@ a {
 .redirecting-btns {
     display: flex;
     justify-content: right;
-    gap: 10px;
 }
 
-.redirecting-btns button {
-    padding: 10px;
-    background-color: transparent;
-    border: none;
+.redirecting-btns a {
+    padding: 20px;
+    border-radius: 10px;
     font-size: 16px;
 }
 
-.redirecting-btns button:hover {
+.redirecting-btns a:hover {
     background-color: #1f2748;
     cursor: pointer;
 }
