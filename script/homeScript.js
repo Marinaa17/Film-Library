@@ -1,20 +1,18 @@
+const loggedInUserEmail = getLoggedInUserEmail();
+const userData = getUserData(loggedInUserEmail);
+
 document.addEventListener('DOMContentLoaded', function () {
     const movieList = document.getElementById('movie-list');
-    
+
     fetch('../json/movies.json')
         .then(response => response.json())
         .then(jsonMovies => {
-            // Fetch movies from local storage
-            const localMoviesString = localStorage.getItem('movies');
-            const localMovies = localMoviesString ? JSON.parse(localMoviesString) : [];
+            const localMovies = userData.favourites || [];
 
-            // Combine movies from JSON file and local storage
             const allMovies = [...jsonMovies, ...localMovies];
 
-            // Sort the combined array of movies by title
             allMovies.sort((a, b) => a.title.localeCompare(b.title));
 
-            // Display the movies in the DOM
             allMovies.forEach(movie => {
                 const listItem = document.createElement('li');
                 listItem.textContent = `${movie.title} (${movie.year})`;
@@ -107,3 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+function getLoggedInUserEmail() {
+    return localStorage.getItem('loggedInUserEmail');
+}

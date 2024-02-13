@@ -1,4 +1,7 @@
-document.getElementById('movieForm').addEventListener('submit',async function(event) {
+const loggedInUserEmail = getLoggedInUserEmail();
+const userData = getUserData(loggedInUserEmail);
+
+document.getElementById('movie-form').addEventListener('submit',async function(event) {
     event.preventDefault();
     
     const title = document.getElementById('title').value;
@@ -60,9 +63,7 @@ async function checkIfMovieExistsInJson(movieTitle, movieYear) {
 
 function checkIfMovieExistsInLocalStorage(movieTitle, movieYear) {
     try {
-        const localMoviesString = localStorage.getItem('movies');
-        const localMovies = localMoviesString ? JSON.parse(localMoviesString) : [];
-        
+        const localMovies = userData.favourites || [];
         const movieExists = localMovies.some(movie => movie.title === movieTitle && movie.year === movieYear);
 
         return movieExists;
@@ -74,11 +75,18 @@ function checkIfMovieExistsInLocalStorage(movieTitle, movieYear) {
 
 function addMovieToLocalStorage(newMovie) {
     try {
-        let existingMovies = JSON.parse(localStorage.getItem('movies')) || []
-        existingMovies.push(newMovie);    
-        localStorage.setItem('movies', JSON.stringify(existingMovies));
+        const existingMovies = userData.favourites || [];
+        existingMovies.push(newMovie);
+        
+        userData.favourites = existingMovies;
+        localStorage.setItem(loggedInUserEmail, JSON.stringify(userData));
+       
         alert('Movie added successfully.');
     } catch (error) {
         console.error('Error adding movie to local storage array:', error);
     }
+}
+
+function getLoggedInUserEmail() {
+    return localStorage.getItem('loggedInUserEmail');
 }

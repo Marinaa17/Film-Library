@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Film Library</title>
 	<link rel="stylesheet" href="../styles/commonStyles.css">
-	<link rel="stylesheet" href="../styles/infoStyles.css"> 
+	<link rel="stylesheet" href="../styles/addMovieStyles.css"> 
 
 </head>
 
@@ -14,25 +14,34 @@
 	<header id="header">
 		<h1><a href="home.html">Film Library</a></h1>
 
-		<form id="search-bar" action="#" method="get">
-            <input type="text" name="search" placeholder="Search...">
-            <button type="submit">Search</button>
-        </form>
+		<nav id="main-nav" class="redirecting-btns">
+			<a id="btn-favourites" href="favourites.html">Favourites</a>
+			<a id="btn-watched" href="watched.html">Watched</a>
+			<a id="btn-add-movie-burger" href="addMovie.html">Add movie</a>
+			<a id="logout" href="logIn.html">Log out</a>
+		</nav>
+	
+		<div id="burger-menu-icon">&#9776;</div>
+	
+		<nav id="burger-menu" class="redirecting-btns">
+			<a id="btn-favourites-burger" href="favourites.html">Favourites</a>
+			<a id="btn-watched-burger" href="watched.html">Watched</a>
+			<a id="btn-add-movie-burger" href="addMovie.html">Add movie</a>
+			<a id="logout-burger" href="logIn.html">Log out</a>
+		</nav>
 
-        <section id="redirecting-btns">
-            <button id="btn-favourites"><a href="favourites.html">Favourites</a></button>
-		    <button id="btn-watched"><a href="watched.html">Watched</a></button>
-			<button id="btn-add-movie"><a href="addMovie.html">Add movie</a></button>
-        </section>
+		<div id="overlay"></div>
 	</header>
 
     <main>
-        <form id="movieForm">
+        <h2>Add a movie</h2>
+
+        <form id="movie-form">
             <label for="title">Title: </label>
             <input type="text" id="title" name="title">
             <label for="year">Year: </label>
             <input type="text" id="year" name="year">
-            <button type="submit">Submit</button>
+            <button type="submit" id="submit-button">Submit</button>
         </form>
     </main>
 

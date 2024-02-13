@@ -1,7 +1,10 @@
+const loggedInUserEmail = getLoggedInUserEmail();
+const userData = getUserData(loggedInUserEmail);
+
 document.addEventListener('DOMContentLoaded', function () {
     const favoutieMoviesMain = document.getElementById('favourite-movies');
-    const favouriteMovies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
-
+    const favouriteMovies = userData.favourites;
+    
     if (!favouriteMovies || favouriteMovies.length === 0) {
         const message = document.createElement('p');
         message.textContent = "You don't have any favourite movies yet.";
@@ -69,3 +72,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+function getUserData(loggedInUserEmail) {
+    const userDataString = localStorage.getItem(loggedInUserEmail);
+    return userDataString ? JSON.parse(userDataString) : { email: '', password: '', favourites: [], watched: [], addedMovies: [] };
+}
+
+function getLoggedInUserEmail() {
+    return localStorage.getItem('loggedInUserEmail');
+}

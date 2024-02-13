@@ -21,23 +21,20 @@ function loginUser() {
 
     const userData = getUserData(email);
 
-    // Check if the user exists
     if (!userData) {
         document.getElementById("emailErrorMessage").innerText = "User with this email does not exist.";
         return;
     }
 
-    // Check if the entered password matches the stored password
     if (userData.password !== password) {
         document.getElementById("passwordErrorMessage").innerText = "Incorrect password.";
         return;
     }
 
-    // Redirect to home.html
+    storeLoggedInUserEmail(email);
     window.location.href = "home.html";
+}
 
-    // Show alert after the page has fully loaded (window.onload event)
-    //window.onload = function () {
-    //    alert("You have logged in successfully!");
-    //}
+function storeLoggedInUserEmail(email) {
+    localStorage.setItem('loggedInUserEmail', email);
 }

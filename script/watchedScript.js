@@ -1,18 +1,21 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const favoutieMoviesMain = document.getElementById('watched-movies');
-    const favouriteMovies = JSON.parse(localStorage.getItem('watched-movies')) || [];
+const loggedInUserEmail = getLoggedInUserEmail();
+const userData = getUserData(loggedInUserEmail);
 
-    if (!favouriteMovies || favouriteMovies.length === 0) {
+document.addEventListener('DOMContentLoaded', function () {
+    const watchedMoviesMain = document.getElementById('watched-movies');
+    const watchedMovies = userData.watched;
+
+    if (!watchedMovies || watchedMovies.length === 0) {
         const message = document.createElement('p');
-        message.textContent = "You don't have any favourite movies yet.";
-        favoutieMoviesMain.appendChild(message);
+        message.textContent = "You don't have any watched movies yet.";
+        watchedMoviesMain.appendChild(message);
         return;
     }
 
-    const favoutieMoviesList = document.createElement('ul');
-    favoutieMoviesList.setAttribute('id', 'watched-movies-list');
-    favouriteMovies.forEach(favMovie => {
-        const url = `https://www.omdbapi.com/?t=${favMovie.title}&y=${favMovie.year}&apikey=ff43acd6`;
+    const watchedMoviesList = document.createElement('ul');
+    watchedMoviesList.setAttribute('id', 'watched-movies-list');
+    watchedMovies.forEach(watchedMovie => {
+        const url = `https://www.omdbapi.com/?t=${watchedMovie.title}&y=${watchedMovie.year}&apikey=ff43acd6`;
 
         fetch(url)
             .then(response => response.json())
@@ -23,14 +26,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 buttonMoreInfo.textContent = 'More info';
                 buttonMoreInfo.classList.add('more-info-btn');
                 listItem.appendChild(buttonMoreInfo);
-                favoutieMoviesList.appendChild(listItem);
+                watchedMoviesList.appendChild(listItem);
             })
             .catch(error => {
                 console.error('Error fetching movie details:', error);
             });
     });
 
-    favoutieMoviesMain.appendChild(favoutieMoviesList);
+    watchedMoviesMain.appendChild(watchedMoviesList);
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -69,3 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+function getLoggedInUserEmail() {
+    return localStorage.getItem('loggedInUserEmail');
+}

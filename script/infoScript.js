@@ -1,3 +1,6 @@
+const loggedInUserEmail = getLoggedInUserEmail();
+const userData = getUserData(loggedInUserEmail);
+
 document.addEventListener('DOMContentLoaded', async function () {
     const urlParams = new URLSearchParams(window.location.search);
     const title = urlParams.get('title');
@@ -92,13 +95,13 @@ function toggleCommentSection(title, year) {
 }
 
 function movieInFavourites(title, year) {
-    const movies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
-    return movies.some(movie => movie.title === title && movie.year === year);
+    const favourites = userData.favourites || [];
+    return favourites.some(movie => movie.title === title && movie.year === year);
 }
 
 function movieInWatched(title, year) {
-    const movies = JSON.parse(localStorage.getItem('watched-movies')) || [];
-    return movies.some(movie => movie.title === title && movie.year === year);
+    const watched = userData.watched || [];
+    return watched.some(movie => movie.title === title && movie.year === year);
 }
 
 function toggleFavourites(title, year, button) {
@@ -129,39 +132,44 @@ function toggleWatched(title, year, button) {
     }
 }
 
+function getUserData(loggedInUserEmail) {
+    const userDataString = localStorage.getItem(loggedInUserEmail);
+    return userDataString ? JSON.parse(userDataString) : { email: '', password: '', favourites: [], watched: [], addedMovies: [] };
+}
+
 function addMovieToFavourites(title, year) {
     const movieInfo = { title: title, year: year, comments: [] };
-    if (movieInfo) {
-        let movies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
-        movies.push(movieInfo);
-        localStorage.setItem('favourite-movies', JSON.stringify(movies));
+    if (movieInfo){
+        userData.favourites.push(movieInfo);
+        
+        localStorage.setItem(loggedInUserEmail, JSON.stringify(userData));
     }
 }
 
 function removeMovieFromFavourites(title, year) {
-    const movies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
-    const indexToRemove = movies.findIndex(movie => movie.title === title && movie.year === year);
+    const favourites = userData.favourites || [];
+    const indexToRemove = favourites.findIndex(movie => movie.title === title && movie.year === year);
     if (indexToRemove !== -1) {
-        movies.splice(indexToRemove, 1);
-        localStorage.setItem('favourite-movies', JSON.stringify(movies));
+        favourites.splice(indexToRemove, 1);
+        localStorage.setItem(loggedInUserEmail, JSON.stringify(userData));
     }
 }
 
 function addMovieToWatched(title, year) {
     const movieInfo = { title: title, year: year, comments: [] };
-    if (movieInfo) {
-        let movies = JSON.parse(localStorage.getItem('watched-movies')) || [];
-        movies.push(movieInfo);
-        localStorage.setItem('watched-movies', JSON.stringify(movies));
+    if (movieInfo){
+        userData.watched.push(movieInfo);
+        
+        localStorage.setItem(loggedInUserEmail, JSON.stringify(userData));
     }
 }
 
 function removeMovieFromWatched(title, year) {
-    const movies = JSON.parse(localStorage.getItem('watched-movies')) || [];
-    const indexToRemove = movies.findIndex(movie => movie.title === title && movie.year === year);
+    const watched = userData.watched || [];
+    const indexToRemove = watched.findIndex(movie => movie.title === title && movie.year === year);
     if (indexToRemove !== -1) {
-        movies.splice(indexToRemove, 1);
-        localStorage.setItem('watched-movies', JSON.stringify(movies));
+        watched.splice(indexToRemove, 1);
+        localStorage.setItem(loggedInUserEmail, JSON.stringify(userData));
     }
 }
 
@@ -169,13 +177,12 @@ function saveComment(title, year) {
     const commentInput = document.getElementById('comment-input');
     const comment = commentInput.value.trim();
     if (comment.length > 0 && comment.length <= 200) {
-        let movies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
-        const movieIndex = movies.findIndex(movie => movie.title === title && movie.year === year);
+        const favourites = userData.favourites || [];
+        const movieIndex = favourites.findIndex(movie => movie.title === title && movie.year === year);
         if (movieIndex !== -1) {
-            movies[movieIndex].comments = movies[movieIndex].comments || [];
-            movies[movieIndex].comments.push({ author: 'User', date: new Date().toISOString(), text: comment });
-            //Tova trqbva da stane s username-a na user-a
-            localStorage.setItem('favourite-movies', JSON.stringify(movies));
+            favourites[movieIndex].comments = favourites[movieIndex].comments || [];
+            favourites[movieIndex].comments.push({ author: loggedInUserEmail, date: new Date().toISOString(), text: comment });
+            localStorage.setItem(loggedInUserEmail, JSON.stringify(userData));
             commentInput.value = '';
             displayComments(title, year);
         }
@@ -187,8 +194,8 @@ function saveComment(title, year) {
 function displayComments(title, year) {
     const commentsList = document.getElementById('comments-list');
 
-    const movies = JSON.parse(localStorage.getItem('favourite-movies')) || [];
-    const movie = movies.find(movie => movie.title === title && movie.year === year);
+    const favourites = userData.favourites || [];
+    const movie = favourites.find(movie => movie.title === title && movie.year === year);
     if (movie && movie.comments) {
         movie.comments.forEach(comment => {
             const li = document.createElement('li');
@@ -196,4 +203,8 @@ function displayComments(title, year) {
             commentsList.appendChild(li);
         });
     }
+}
+
+function getLoggedInUserEmail() {
+    return localStorage.getItem('loggedInUserEmail');
 }
