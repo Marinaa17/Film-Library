@@ -30,13 +30,12 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
-    favoutieMoviesMain.appendChild(favoutieMoviesList); // Append the list to the DOM
+    favoutieMoviesMain.appendChild(favoutieMoviesList);
 });
 
 document.addEventListener('DOMContentLoaded', function () {
     const movieList = document.getElementById('favourite-movies-list');
 
-    // Function to fetch additional movie info from OMDB API
     async function fetchMovieInfo(title, year) {
         const apiKey = 'ff43acd6';
         const apiUrl = `https://www.omdbapi.com/?t=${title}&y=${year}&apikey=${apiKey}`;
@@ -54,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Event listener for "More info" buttons
     movieList.addEventListener('click', async function (event) {
         if (event.target.classList.contains('more-info-btn')) {
             const listItem = event.target.closest('li');

@@ -1,6 +1,9 @@
+body {
+    color: #fff;
+}
+
 h2 {
     background-color: #2E3A6C;
-    color: #fff;
     border-radius: 20px;
     padding: 20px;
     margin: 0px 20px 20px 20px;
@@ -9,12 +12,10 @@ h2 {
 }
 
 h3 {
-    color: #fff;
     font-size: 30px;
 }
 
 p {
-    color: #fff;
     font-size: 20px;
 }
 
@@ -47,7 +48,7 @@ button {
     justify-content: center;
 }
 
-#comments-section {
+#comments-section-full {
     flex-direction: column;
     gap: 20px;
     margin: 20px;
@@ -89,7 +90,19 @@ button {
     background-color: #2E3A6C;
     color: #fff;
     font-size: 16px;
-    height: 50px;
+    max-height: 70px;
+}
+
+#leave-comment-section {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 20px;
+
+}
+
+#comment-textarea {
+    width: 80%;
 }
 
 #comment-input {
@@ -97,7 +110,7 @@ button {
     font-size: 16px;
     border-radius: 10px;
     border: none;
-    width: 500px;
+    width: 100%;
     resize: none;
     font-family: inherit;
 }
@@ -113,8 +126,27 @@ button {
     padding: 10px;
     border-radius: 10px;
     background-color: #2E3A6C;
-    color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+}
+
+@media screen and (max-width: 900px) {
+    #info-section {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #leave-comment-section {
+        flex-direction: column;
+    }
+
+    #comment-textarea {
+        width: 100%;
+    }
+
+    #comment-input {
+        margin: 0;
+    }
 }
