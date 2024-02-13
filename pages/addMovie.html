@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Film Library</title>
 	<link rel="stylesheet" href="../styles/commonStyles.css">
-	<link rel="stylesheet" href="../styles/infoStyles.css">
+	<link rel="stylesheet" href="../styles/infoStyles.css"> 
 
 </head>
 
@@ -26,9 +26,14 @@
         </section>
 	</header>
 
-    <main id="movie-info">
-        <section id="img"></section>
-		<section id="info"></section>
+    <main>
+        <form id="movieForm">
+            <label for="title">Title: </label>
+            <input type="text" id="title" name="title">
+            <label for="year">Year: </label>
+            <input type="text" id="year" name="year">
+            <button type="submit">Submit</button>
+        </form>
     </main>
 
     <footer id="footer">
@@ -36,7 +41,7 @@
 	</footer>
 
 	<p id="successMessage" class="success-message"></p>
-    <script src="../script/infoScript.js"></script>
+    <script src="../script/addMovieScript.js"></script>
 
 </body>
 
