@@ -1,11 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
     const movieList = document.getElementById('movie-list');
-
+    
     fetch('../json/movies.json')
         .then(response => response.json())
-        .then(data => {
-            data.sort((a, b) => a.title.localeCompare(b.title));
-            data.forEach(movie => {
+        .then(jsonMovies => {
+            // Fetch movies from local storage
+            const localMoviesString = localStorage.getItem('movies');
+            const localMovies = localMoviesString ? JSON.parse(localMoviesString) : [];
+
+            // Combine movies from JSON file and local storage
+            const allMovies = [...jsonMovies, ...localMovies];
+
+            // Sort the combined array of movies by title
+            allMovies.sort((a, b) => a.title.localeCompare(b.title));
+
+            // Display the movies in the DOM
+            allMovies.forEach(movie => {
                 const listItem = document.createElement('li');
                 listItem.textContent = `${movie.title} (${movie.year})`;
                 var buttonMoreInfo = document.createElement('button');
@@ -15,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 movieList.appendChild(listItem);
             });
         })
-        .catch(error => console.error('Error fetching movies:', error));
+        .catch(error => console.error('Error fetching or displaying movies:', error));
 });
 
 document.addEventListener('DOMContentLoaded', function () {
