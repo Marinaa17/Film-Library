@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('../json/movies.json')
         .then(response => response.json())
         .then(jsonMovies => {
-            const localMovies = userData.favourites || [];
+            const localMovies = userData.addedMovies || [];
 
             const allMovies = [...jsonMovies, ...localMovies];
 
@@ -105,6 +105,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+function getUserData(loggedInUserEmail) {
+    const userDataString = localStorage.getItem(loggedInUserEmail);
+    return userDataString ? JSON.parse(userDataString) : { email: '', password: '', favourites: [], watched: [], addedMovies: [] };
+}
 
 function getLoggedInUserEmail() {
     return localStorage.getItem('loggedInUserEmail');

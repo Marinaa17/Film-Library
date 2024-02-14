@@ -66,6 +66,5 @@ function validateAndRegister() {
         const password = document.getElementById("password").value;
 
         registerUser(email, password);
-    } else {
     }
 }

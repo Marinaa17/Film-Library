@@ -5,12 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
 function getUserData(email) {
-    // Get the data from local storage using the email as the key
     const userDataString = localStorage.getItem(email);
-
-    // If user data is found, parse the JSON string back to an object
     return userDataString ? JSON.parse(userDataString) : null;
 }
 

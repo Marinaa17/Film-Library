@@ -73,6 +73,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+function getUserData(loggedInUserEmail) {
+    const userDataString = localStorage.getItem(loggedInUserEmail);
+    return userDataString ? JSON.parse(userDataString) : { email: '', password: '', favourites: [], watched: [], addedMovies: [] };
+}
+
 function getLoggedInUserEmail() {
     return localStorage.getItem('loggedInUserEmail');
 }

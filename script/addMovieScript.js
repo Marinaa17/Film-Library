@@ -63,7 +63,7 @@ async function checkIfMovieExistsInJson(movieTitle, movieYear) {
 
 function checkIfMovieExistsInLocalStorage(movieTitle, movieYear) {
     try {
-        const localMovies = userData.favourites || [];
+        const localMovies = userData.addedMovies || [];
         const movieExists = localMovies.some(movie => movie.title === movieTitle && movie.year === movieYear);
 
         return movieExists;
@@ -75,16 +75,21 @@ function checkIfMovieExistsInLocalStorage(movieTitle, movieYear) {
 
 function addMovieToLocalStorage(newMovie) {
     try {
-        const existingMovies = userData.favourites || [];
+        const existingMovies = userData.addedMovies || [];
         existingMovies.push(newMovie);
         
-        userData.favourites = existingMovies;
+        userData.addedMovies = existingMovies;
         localStorage.setItem(loggedInUserEmail, JSON.stringify(userData));
        
         alert('Movie added successfully.');
     } catch (error) {
         console.error('Error adding movie to local storage array:', error);
     }
+}
+
+function getUserData(loggedInUserEmail) {
+    const userDataString = localStorage.getItem(loggedInUserEmail);
+    return userDataString ? JSON.parse(userDataString) : { email: '', password: '', favourites: [], watched: [], addedMovies: [] };
 }
 
 function getLoggedInUserEmail() {

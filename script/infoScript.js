@@ -132,11 +132,6 @@ function toggleWatched(title, year, button) {
     }
 }
 
-function getUserData(loggedInUserEmail) {
-    const userDataString = localStorage.getItem(loggedInUserEmail);
-    return userDataString ? JSON.parse(userDataString) : { email: '', password: '', favourites: [], watched: [], addedMovies: [] };
-}
-
 function addMovieToFavourites(title, year) {
     const movieInfo = { title: title, year: year, comments: [] };
     if (movieInfo){
@@ -203,6 +198,11 @@ function displayComments(title, year) {
             commentsList.appendChild(li);
         });
     }
+}
+
+function getUserData(loggedInUserEmail) {
+    const userDataString = localStorage.getItem(loggedInUserEmail);
+    return userDataString ? JSON.parse(userDataString) : { email: '', password: '', favourites: [], watched: [], addedMovies: [] };
 }
 
 function getLoggedInUserEmail() {
