@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const movieList = document.getElementById('movie-list');
 
     async function fetchMovieInfo(title, year) {
-        const apiKey = 'ff43acd6';
+        const apiKey = '19171878';
         const apiUrl = `https://www.omdbapi.com/?t=${title}&y=${year}&apikey=${apiKey}`;
 
         try {

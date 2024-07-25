@@ -8,24 +8,25 @@ p {
 
 body {
     font-family: Arial, sans-serif;
-	background-color: #1A1E25;
+	background-color: rgb(26, 30, 37);
 	text-align: center;
 }
 
 main {
     min-height: 80vh;
     font-size: 18px;
+    z-index: 1002;
 }
 
 a {
     text-decoration: none;
     color: #fff;
-    height: inherit;
-    width: inherit;
+    /* height: inherit;
+    width: inherit; */
 }
 
 #header {
-    background-color: #2E3A6C;
+    /* background-color: #2E3A6C;
     color: #fff;
     padding: 0px 20px;
     display: flex;
@@ -33,13 +34,33 @@ a {
     align-items: center;
     position: sticky;
     top: 0;
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5); */
+    background-image: linear-gradient(rgb(40, 45, 50), rgba(40, 45, 50, 0));
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1001;
+    top: 0;
+    transition: background-image 0.3s ease; 
 }
 
-#header h1 {
+#header:hover {
+    background-image: linear-gradient(rgb(26, 30, 37, 1), rgb(26, 30, 37, 0.7),rgba(26, 30, 37, 0));
+}
+
+/* #header h1 {
     font-size: 44px;
     padding: 20px 0px;
     font-weight: bold;
+} */
+
+#logo {
+    height: 50px; 
+    width: auto;
+    margin: 20px 0px 40px 20px;
 }
 
 #navigation-tabs {
@@ -137,14 +158,21 @@ a {
 }
 
 .redirecting-btns a {
+    color: #cfcfcf;
     padding: 20px;
     border-radius: 10px;
-    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8);
 }
 
 .redirecting-btns a:hover {
-    background-color: #1f2748;
-    cursor: pointer;
+    /* background-color: #1f2748;*/
+    cursor: pointer; 
+    background-color: transparent;
+    color: #fff;
 }
 
 #footer {
@@ -191,4 +219,80 @@ ul button {
 ul button:hover {
     background-color: #fff;
     color: #2E3A6C;
+}
+
+
+
+
+#carousel {
+    position: relative;
+    width: 100%;
+    height: 40%;
+    margin: 0;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+/* .carousel {
+    position: relative;
+    
+} */
+
+.carousel__viewport {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.carousel__slide {
+    position: relative;
+    min-width: 100%;
+    box-sizing: border-box;
+    
+}
+
+.carousel__slide-image {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    display: block;
+}
+
+.carousel__slide::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15%; /* Adjust the height of the gradient as needed */
+    background: linear-gradient(to bottom, rgba(26, 30, 37, 0) 0%, rgba(26, 30, 37, 1) 100%);
+    pointer-events: none; /* Prevents overlay from interfering with clicks */
+}
+
+.carousel__control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    border-radius: 5px;
+}
+
+.carousel__control.prev {
+    left: 10px;
+}
+
+.carousel__control.next {
+    right: 10px;
+}
+
+.carousel__control:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
