@@ -8,3 +8,102 @@ select {
     box-sizing: border-box;
     font-size: 18px;
 }
+
+#header {
+    /* background-color: #2E3A6C;
+    color: #fff;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5); */
+    background-image: linear-gradient(rgb(26, 30, 37, 1),rgba(26, 30, 37, 0));
+    position: fixed;
+    z-index: 1001;
+    transition: background-image 0.3s ease; 
+}
+
+#header:hover {
+    background-image: linear-gradient(rgb(26, 30, 37, 1), rgb(26, 30, 37, 0.7),rgba(26, 30, 37, 0));
+    transition: background-image 0.3s ease; 
+}
+
+.redirecting-btns a {
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8);
+}
+
+
+#carousel {
+    position: relative;
+    width: 100%;
+    height: 40%;
+    margin: 0;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+/* .carousel {
+    position: relative;
+    
+} */
+
+.carousel__viewport {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.carousel__slide {
+    position: relative;
+    min-width: 100%;
+    box-sizing: border-box;
+    
+}
+
+.carousel__slide-image {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    display: block;
+}
+
+.carousel__slide::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15%; /* Adjust the height of the gradient as needed */
+    background: linear-gradient(to bottom, rgba(26, 30, 37, 0) 0%, rgba(26, 30, 37, 1) 100%);
+    pointer-events: none; /* Prevents overlay from interfering with clicks */
+}
+
+.carousel__control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    border-radius: 5px;
+}
+
+.carousel__control.prev {
+    left: 10px;
+}
+
+.carousel__control.next {
+    right: 10px;
+}
+
+.carousel__control:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
