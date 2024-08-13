@@ -2,21 +2,18 @@ body {
     color: #fff;
 }
 
-h2 {
+aside {
+    flex: 1;
     background-color: #2E3A6C;
-    border-radius: 20px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
-    margin: 0px 20px 20px 20px;
-    text-align: center;
-    font-size: 44px;
 }
 
 h3 {
     font-size: 30px;
-}
-
-p {
-    font-size: 20px;
 }
 
 button {
@@ -26,26 +23,53 @@ button {
     border-radius: 10px;
 }
 
+#movie-info-section {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    margin: 50px;
+}
+
 #movie-info {
     display: flex;
+    flex: 2;
     flex-direction: column;
     gap: 50px;
     margin: 20px;
+}
+
+#title {
+    margin: 20px;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+    font-size: 24pt;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 #movie-info section {
     margin: 0px 20px;
 }
 
-#movie-info img {
+#movie-info-section img {
     border-radius: 10px;
+    margin: 10px;
 }
 
 #info-section {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 20px;
     justify-content: center;
+}
+
+#movie-info-left {
+    flex-direction: 1;
+}
+
+#movie-info-right {
+    flex-direction: 1;
 }
 
 #comments-section-full {
@@ -84,6 +108,10 @@ button {
     gap: 10px;
     display: flex;
     flex-direction: column;
+}
+#info p{
+    font-size: 14pt;
+    color: rgb(201, 206, 210);
 }
 
 #save-comment-btn {

@@ -25,12 +25,11 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const movieInfo = await fetchMovieInfo(title, year);
     if (movieInfo) {
-        document.getElementById('title').innerHTML = movieInfo.Title;
+        document.getElementById('title').innerHTML = movieInfo.Title + ` (${movieInfo.Year})`;
         document.getElementById('img').innerHTML = `<img src="${movieInfo.Poster}" alt="${movieInfo.Title} Poster">`;
         document.getElementById('info').innerHTML = `
-            <p id="year"><strong>Year:</strong> ${movieInfo.Year}</p>
+            <p id="director"><strong>Directed by:</strong> ${movieInfo.Director}</p>
             <p id="genre"><strong>Genre:</strong> ${movieInfo.Genre}</p>
-            <p id="director"><strong>Director:</strong> ${movieInfo.Director}</p>
             <p id="actors"><strong>Actors:</strong> ${movieInfo.Actors}</p>
             <p id="plot"><strong>Plot:</strong> ${movieInfo.Plot}</p>
             <section id="buttons">
