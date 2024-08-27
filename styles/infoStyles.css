@@ -4,7 +4,6 @@ body {
 
 aside {
     flex: 1;
-    background-color: #2E3A6C;
     width: 20%;
     display: flex;
     flex-direction: column;
@@ -46,6 +45,7 @@ button {
     font-size: 24pt;
     font-weight: bold;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 #movie-info section {
@@ -72,7 +72,7 @@ button {
     flex-direction: 1;
 }
 
-#comments-section-full {
+#comments-section-add {
     flex-direction: column;
     gap: 20px;
     margin: 20px;

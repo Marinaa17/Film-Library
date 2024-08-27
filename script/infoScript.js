@@ -32,14 +32,15 @@ document.addEventListener('DOMContentLoaded', async function () {
             <p id="genre"><strong>Genre:</strong> ${movieInfo.Genre}</p>
             <p id="actors"><strong>Actors:</strong> ${movieInfo.Actors}</p>
             <p id="plot"><strong>Plot:</strong> ${movieInfo.Plot}</p>
-            <section id="buttons">
+        `;
+        document.getElementById('movie-info-left').innerHTML += `
                 <button id="toggle-favourites" class="${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'remove-from-favourites' : 'add-to-favourites'}">${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'Remove from favourites' : 'Add to favourites'}</button>
                 <button id="toggle-watched" class="${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'remove-from-watched' : 'add-to-watched'}">${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'Remove from watched' : 'Add to watched'}</button>
             </section>
         `;
         var documentMain = document.getElementById('movie-info');
         documentMain.innerHTML += `
-        <section id="comments-section-full" style="display: ${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'flex' : 'none'};">
+        <section id="comments-section-add" style="display: ${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'flex' : 'none'};">
             <h3>Leave a comment</h3>
             <section id="leave-comment-section">
                 <section id="comment-textarea">
@@ -48,22 +49,22 @@ document.addEventListener('DOMContentLoaded', async function () {
                 </section>
                 <button id="save-comment-btn">Save Comment</button>
             </section>
-
-            <section id="comments-section">
-                <h3>Comments</h3>
-                <ul id="comments-list"></ul>
-            </section>
+        </section>
+        
+        <section id="comments-section">
+            <h3>Comments</h3>
+            <ul id="comments-list"></ul>
         </section>`;
 
         const toggleFavouritesBtn = document.getElementById('toggle-favourites');
         toggleFavouritesBtn.addEventListener('click', function () {
             toggleFavourites(movieInfo.Title, movieInfo.Year, toggleFavouritesBtn);
-            toggleCommentSection(movieInfo.Title, movieInfo.Year);
         });
 
         const toggleWatchedBtn = document.getElementById('toggle-watched');
         toggleWatchedBtn.addEventListener('click', function () {
             toggleWatched(movieInfo.Title, movieInfo.Year, toggleWatchedBtn);
+            toggleCommentSection(movieInfo.Title, movieInfo.Year);
         });
 
         const saveCommentBtn = document.getElementById('save-comment-btn');
@@ -77,10 +78,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             const charactersCount = document.getElementById('characters-count');
             charactersCount.textContent = `${commentInput.value.length}/200`;
         });
-
-        if (movieInFavourites(movieInfo.Title, movieInfo.Year)) {
-            displayComments(movieInfo.Title, movieInfo.Year);
-        }
+        displayComments(movieInfo.Title, movieInfo.Year);
     } else {
         alert('Failed to fetch movie info. Please try again later.');
     }
@@ -88,9 +86,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 function toggleCommentSection(title, year) {
-    const commentSection = document.getElementById('comments-section-full');
-    const isFavourite = movieInFavourites(title, year);
-    commentSection.style.display = isFavourite ? 'block' : 'none';
+    const commentSection = document.getElementById('comments-section-add');
+    const isWatched = movieInWatched(title, year);
+    commentSection.style.display = isWatched ? 'block' : 'none';
 }
 
 function movieInFavourites(title, year) {
@@ -132,7 +130,7 @@ function toggleWatched(title, year, button) {
 }
 
 function addMovieToFavourites(title, year) {
-    const movieInfo = { title: title, year: year, comments: [] };
+    const movieInfo = { title: title, year: year };
     if (movieInfo){
         userData.favourites.push(movieInfo);
         
@@ -150,7 +148,7 @@ function removeMovieFromFavourites(title, year) {
 }
 
 function addMovieToWatched(title, year) {
-    const movieInfo = { title: title, year: year, comments: [] };
+    const movieInfo = { title: title, year: year};
     if (movieInfo){
         userData.watched.push(movieInfo);
         
@@ -170,16 +168,26 @@ function removeMovieFromWatched(title, year) {
 function saveComment(title, year) {
     const commentInput = document.getElementById('comment-input');
     const comment = commentInput.value.trim();
+    
     if (comment.length > 0 && comment.length <= 200) {
-        const favourites = userData.favourites || [];
-        const movieIndex = favourites.findIndex(movie => movie.title === title && movie.year === year);
-        if (movieIndex !== -1) {
-            favourites[movieIndex].comments = favourites[movieIndex].comments || [];
-            favourites[movieIndex].comments.push({ author: loggedInUserEmail, date: new Date().toISOString(), text: comment });
-            localStorage.setItem(loggedInUserEmail, JSON.stringify(userData));
-            commentInput.value = '';
-            displayComments(title, year);
+        const allComments = JSON.parse(localStorage.getItem('comments')) || []; 
+        let movieComments = allComments.find(movie => movie.title === title && movie.year === year);
+        
+        if (!movieComments) {
+            movieComments = { title: title, year: year, comments: [] };
+            allComments.push(movieComments);
         }
+
+        movieComments.comments.push({
+            author: loggedInUserEmail,
+            date: new Date().toISOString(),
+            text: comment
+        });
+
+        localStorage.setItem('comments', JSON.stringify(allComments));
+
+        commentInput.value = '';
+        displayComments(title, year);
     } else {
         alert('Comment must be between 1 and 200 characters.');
     }
@@ -187,15 +195,21 @@ function saveComment(title, year) {
 
 function displayComments(title, year) {
     const commentsList = document.getElementById('comments-list');
+    commentsList.innerHTML = ''; 
 
-    const favourites = userData.favourites || [];
-    const movie = favourites.find(movie => movie.title === title && movie.year === year);
-    if (movie && movie.comments) {
-        movie.comments.forEach(comment => {
+    const allComments = JSON.parse(localStorage.getItem('comments')) || [];
+    const movieComments = allComments.find(movie => movie.title === title && movie.year === year);
+
+    if (movieComments && movieComments.comments.length > 0) {
+        movieComments.comments.forEach(comment => {
             const li = document.createElement('li');
             li.textContent = `${comment.author} (${new Date(comment.date).toLocaleString()}): ${comment.text}`;
             commentsList.appendChild(li);
         });
+    } else {
+        const li = document.createElement('li');
+        li.textContent = "Be the first one to leave a comment for this movie!";
+        commentsList.appendChild(li);
     }
 }
 
