@@ -25,15 +25,41 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const movieInfo = await fetchMovieInfo(title, year);
     if (movieInfo) {
-        document.getElementById('title').innerHTML = movieInfo.Title + ` (${movieInfo.Year})`;
-        document.getElementById('img').innerHTML = `<img src="${movieInfo.Poster}" alt="${movieInfo.Title} Poster">`;
-        document.getElementById('info').innerHTML = `
-            <p id="director"><strong>Directed by:</strong> ${movieInfo.Director}</p>
-            <p id="genre"><strong>Genre:</strong> ${movieInfo.Genre}</p>
-            <p id="actors"><strong>Actors:</strong> ${movieInfo.Actors}</p>
-            <p id="plot"><strong>Plot:</strong> ${movieInfo.Plot}</p>
+        const metascoreStyles = getMetascoreColor(movieInfo.Metascore);
+        // document.getElementById('title').innerHTML = movieInfo.Title + ` (${movieInfo.Year})`;
+        // document.getElementById('img').innerHTML = `<img src="${movieInfo.Poster}" alt="${movieInfo.Title} Poster">`;
+        document.getElementById('info-section').innerHTML = `
+            <h2 id="title">${movieInfo.Title} (${movieInfo.Year})</h2>
+            <section id="info">
+                <p id="director"><strong>Directed by:</strong> ${movieInfo.Director}</p>
+                <p id="writer"><strong>Written by:</strong> ${movieInfo.Writer}</p>
+                <p id="genre"><strong>Genre:</strong> ${movieInfo.Genre}</p>
+                <p id="actors"><strong>Actors:</strong> ${movieInfo.Actors}</p>
+                <p id="runtime"><strong>Runtime:</strong> ${movieInfo.Runtime}</p>
+                <p id="language"><strong>Language:</strong> ${movieInfo.Language}</p>
+                <p id="country"><strong>Country:</strong> ${movieInfo.Country}</p>
+                <p id="released"><strong>Released:</strong> ${movieInfo.Released}</p>
+                <p id="awards"><strong>Awards:</strong> ${movieInfo.Awards}</p>
+                <p id="box-office"><strong>Box Office:</strong> ${movieInfo.BoxOffice}</p>
+                <p id="plot"><strong>Plot:</strong> ${movieInfo.Plot}</p>
+                <p id="production"><strong>Production:</strong> ${movieInfo.Production}</p>
+            </section>
         `;
         document.getElementById('movie-info-left').innerHTML += `
+                <img id="movie-poster" src="${movieInfo.Poster}" alt="${movieInfo.Title} Poster">
+                <p id="imdb-rating"><strong>IMDB Rating:</strong> 
+                    <span class="stars">${generateStars(movieInfo.imdbRating)}</span>
+                    <span class="rating-text">${movieInfo.imdbRating}/10</span>
+                </p>
+                <p id="metascore"><strong>Metascore:</strong>
+                    <span class="score-bar" 
+                        style="background-color: ${metascoreStyles.background}; 
+                        color: ${metascoreStyles.color};
+                        padding: 4px; 
+                        border-radius: 4px;">
+                    ${movieInfo.Metascore}
+                </span>
+                </p>
                 <button id="toggle-favourites" class="${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'remove-from-favourites' : 'add-to-favourites'}">${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'Remove from favourites' : 'Add to favourites'}</button>
                 <button id="toggle-watched" class="${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'remove-from-watched' : 'add-to-watched'}">${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'Remove from watched' : 'Add to watched'}</button>
             </section>
@@ -208,7 +234,7 @@ function displayComments(title, year) {
         });
     } else {
         const li = document.createElement('li');
-        li.textContent = "Be the first one to leave a comment for this movie!";
+        li.textContent = "Be the first one to leave a comment for this movie! (After you've watched it, of course :) )";
         commentsList.appendChild(li);
     }
 }
@@ -220,4 +246,21 @@ function getUserData(loggedInUserEmail) {
 
 function getLoggedInUserEmail() {
     return localStorage.getItem('loggedInUserEmail');
+}
+
+function generateStars(rating) {
+    const starFull = '★';
+    const starEmpty = '☆';
+    const stars = Math.round(rating / 2);
+    return starFull.repeat(stars) + starEmpty.repeat(5 - stars);
+}
+
+function getMetascoreColor(metascore) {
+    if (metascore >= 75) {
+        return { background: 'green', color: 'white' };
+    } else if (metascore >= 50) {
+        return { background: 'yellow', color: 'black' };
+    } else {
+        return { background: 'red', color: 'white' };
+    }
 }
