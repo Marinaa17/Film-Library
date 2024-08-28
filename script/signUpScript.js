@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     const btn = document.getElementById('signUp');
     btn.addEventListener("click", () => {
+
+        document.getElementById("emailErrorMessage").innerText = "";
+        document.getElementById("passwordErrorMessage").innerText = "";
+        document.getElementById("confirmPasswordErrorMessage").innerText = "";
+        
         validateAndRegister();
     });
 });
@@ -56,7 +61,7 @@ function registerUser(email, password) {
 
     localStorage.setItem(email, userDataString);
 
-    window.location.href = "home.html";
+    window.location.href = "logIn.html";
     alert("You have registered successfully!");
 }
 
