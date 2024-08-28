@@ -7,31 +7,55 @@
 	<title>Film Library</title>
 	<link rel="stylesheet" href="../styles/commonStyles.css">
 	<link rel="stylesheet" href="../styles/homeStyles.css">
+	<link rel="stylesheet" href="../styles/headerStyleDarkGradient.css"> 
 
 </head>
 
 <body>
 	<header id="header">
-		<h1><a href="home.html">Film Library</a></h1>
-	
+		<!-- <h1><a href="home.html">Film Library</a></h1>-->
+		<a href="home.html">
+			<img src="../images/logo/film-library-logo-white.png" alt="Film Library logo" id="logo">
+		</a>
+
 		<nav id="main-nav" class="redirecting-btns">
-			<a id="btn-favourites" href="favourites.html">Favourites</a>
-			<a id="btn-watched" href="watched.html">Watched</a>
-			<a id="btn-add-movie-burger" href="addMovie.html">Add movie</a>
-			<a id="logout" href="logIn.html">Log out</a>
+			<a id="btn-favourites" href="favourites.html">FAVOURITES</a>
+			<a id="btn-watched" href="watched.html">WATCHED</a>
+			<a id="btn-add-movie-burger" href="addMovie.html">ADD MOVIE</a>
+			<a id="logout" href="logIn.html">LOG OUT</a>
 		</nav>
 	
 		<div id="burger-menu-icon">&#9776;</div>
 	
 		<nav id="burger-menu" class="redirecting-btns">
-			<a id="btn-favourites-burger" href="favourites.html">Favourites</a>
-			<a id="btn-watched-burger" href="watched.html">Watched</a>
-			<a id="btn-add-movie-burger" href="addMovie.html">Add movie</a>
-			<a id="logout-burger" href="logIn.html">Log out</a>
+			<a id="btn-favourites-burger" href="favourites.html">FAVOURITES</a>
+			<a id="btn-watched-burger" href="watched.html">WATCHED</a>
+			<a id="btn-add-movie-burger" href="addMovie.html">ADD MOVIE</a>
+			<a id="logout-burger" href="logIn.html">LOG OUT</a>
 		</nav>
 
 		<div id="overlay"></div>
 	</header>
+
+	<section id="carousel">
+		<ol class="carousel__viewport">
+			<li class="carousel__slide">
+				<img src="../images/movie covers/interstellar-d5hpgadclxszmpeh.jpg" alt="Interstellar movie cover" class="carousel__slide-image">
+			</li>
+			<li class="carousel__slide">
+				<img src="../images/movie covers/IT-Movie-Review.webp" alt="It movie cover" class="carousel__slide-image">
+			</li>
+			<li class="carousel__slide">
+				<img src="../images/movie covers/movies-up-movie-animated-movies-landscape-wallpaper.jpg" alt="Up movie cover" class="carousel__slide-image">
+			</li>
+			<li class="carousel__slide">
+				<img src="../images/movie covers/thumb-1920-1257951.jpeg" alt="Oppenheimer movie cover" class="carousel__slide-image">
+			</li>
+		</ol>
+		<button class="carousel__control prev" onclick="prevSlide()">❮</button>
+		<button class="carousel__control next" onclick="nextSlide()">❯</button>
+	</section>
+	
 	
     <main>
 		<img src="featured-movie.jpg" alt="Featured Movie" class="featured-image">

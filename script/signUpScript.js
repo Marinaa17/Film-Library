@@ -58,10 +58,11 @@ function registerUser(email, password) {
     };
 
     const userDataString = JSON.stringify(userData);
-
+    debugger;
     localStorage.setItem(email, userDataString);
 
     window.location.href = "logIn.html";
+
     alert("You have registered successfully!");
 }
 
