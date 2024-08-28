@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     const btn = document.getElementById('logIn');
     btn.addEventListener("click", () => {
+
+        document.getElementById("emailErrorMessage").innerText = "";
+        document.getElementById("passwordErrorMessage").innerText = "";
+
         loginUser();
     });
 });
@@ -21,12 +25,20 @@ function loginUser() {
 
     const userData = getUserData(email);
 
-    if (!userData) {
+    if (email === "") {
+        document.getElementById("emailErrorMessage").innerText = "Email is required.";
+        passed = false;
+    } 
+    else if (!userData) {
         document.getElementById("emailErrorMessage").innerText = "User with this email does not exist.";
         return;
     }
 
-    if (userData.password !== password) {
+    if (password === "") {
+        document.getElementById("passwordErrorMessage").innerText = "Password is required.";
+        passed = false;
+    } 
+    else if (userData.password !== password) {
         document.getElementById("passwordErrorMessage").innerText = "Incorrect password.";
         return;
     }

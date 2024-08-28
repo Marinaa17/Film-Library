@@ -22,31 +22,47 @@ function validateSignUp() {
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     var usernameAndPasswordRegex = /^[A-Za-z0-9]+$/;
 
-    if (username.length < 3) {
+    if (username === "") {
+        document.getElementById("usernameErrorMessage").innerText = "Username is required.";
+        passed = false;
+    } 
+    else if (username.length < 3) {
         document.getElementById("usernameErrorMessage").innerText = "Username should be at least 3 characters.";
         passed=false;
     }
-    if (!usernameAndPasswordRegex.test(username)) { 
+    else if (!usernameAndPasswordRegex.test(username)) { 
         document.getElementById("usernameErrorMessage").innerText = "The username should contain only Latin letters or numbers.";
         passed = false;
     }
 
-    if (!emailRegex.test(email)) {
+    if (email === "") {
+        document.getElementById("emailErrorMessage").innerText = "Email is required.";
+        passed = false;
+    } 
+    else if (!emailRegex.test(email)) {
         document.getElementById("emailErrorMessage").innerText = "Please enter a valid email address.";
         passed=false;
     }
 
 
-    if (password.length < 6) {
+    if (password === "") {
+        document.getElementById("passwordErrorMessage").innerText = "Password is required.";
+        passed = false;
+    } 
+    else if (password.length < 6) {
         document.getElementById("passwordErrorMessage").innerText = "Password should be at least 6 characters.";
         passed=false;
     }
-    if (!usernameAndPasswordRegex.test(password)) { 
+    else if (!usernameAndPasswordRegex.test(password)) { 
         document.getElementById("passwordErrorMessage").innerText = "The password should contain only Latin letters or numbers.";
         passed = false;
     }
 
-    if (password !== confirmPassword) {
+    if (confirmPassword === "") {
+        document.getElementById("confirmPasswordErrorMessage").innerText = "Password is required.";
+        passed = false;
+    } 
+    else if (password !== confirmPassword) {
         document.getElementById("confirmPasswordErrorMessage").innerText = "Passwords do not match. Please confirm the password.";
         passed=false;
     }
