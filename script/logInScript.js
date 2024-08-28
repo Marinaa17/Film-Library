@@ -6,8 +6,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function getUserData(email) {
-    const userDataString = localStorage.getItem(email);
-    return userDataString ? JSON.parse(userDataString) : null;
+    const usersString = localStorage.getItem("users");
+    const users = usersString ? JSON.parse(usersString) : [];
+
+    const user = users.find(user => user.email === email);
+
+    return user || null;
 }
 
 function loginUser() {
@@ -27,10 +31,10 @@ function loginUser() {
         return;
     }
 
-    storeLoggedInUserEmail(email);
+    storeLoggedInUserEmail(userData.username);
     window.location.href = "home.html";
 }
 
-function storeLoggedInUserEmail(email) {
-    localStorage.setItem('loggedInUserEmail', email);
+function storeLoggedInUserEmail(username) {
+    localStorage.setItem('loggedInUser', username);
 }
