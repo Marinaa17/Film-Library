@@ -8,9 +8,6 @@ select {
     box-sizing: border-box;
     font-size: 18px;
 }
-
-
-
 #carousel {
     position: relative;
     width: 100%;
@@ -19,11 +16,6 @@ select {
     overflow: hidden;
     z-index: 1000;
 }
-
-/* .carousel {
-    position: relative;
-    
-} */
 
 .carousel__viewport {
     display: flex;

@@ -1,6 +1,8 @@
 const loggedInUserEmail = getLoggedInUserEmail();
 const userData = getUserData(loggedInUserEmail);
 
+window.addEventListener('resize', moveTitleBasedOnScreenWidth);
+
 document.addEventListener('DOMContentLoaded', async function () {
     const urlParams = new URLSearchParams(window.location.search);
     const title = urlParams.get('title');
@@ -26,8 +28,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     const movieInfo = await fetchMovieInfo(title, year);
     if (movieInfo) {
         const metascoreStyles = getMetascoreColor(movieInfo.Metascore);
-        // document.getElementById('title').innerHTML = movieInfo.Title + ` (${movieInfo.Year})`;
-        // document.getElementById('img').innerHTML = `<img src="${movieInfo.Poster}" alt="${movieInfo.Title} Poster">`;
         document.getElementById('info-section').innerHTML = `
             <h2 id="title">${movieInfo.Title} (${movieInfo.Year})</h2>
             <section id="info">
@@ -60,20 +60,25 @@ document.addEventListener('DOMContentLoaded', async function () {
                     ${movieInfo.Metascore}
                 </span>
                 </p>
-                <button id="toggle-favourites" class="${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'remove-from-favourites' : 'add-to-favourites'}">${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'Remove from favourites' : 'Add to favourites'}</button>
-                <button id="toggle-watched" class="${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'remove-from-watched' : 'add-to-watched'}">${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'Remove from watched' : 'Add to watched'}</button>
+                <section id="buttons-add-remove">
+                    <button id="toggle-favourites" class="${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'remove-from-favourites' : 'add-to-favourites'}" title="${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'Remove from favourites' : 'Add to favourites'}">
+                    <i class="${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'fas fa-heart' : 'far fa-heart'}"></i></button>
+
+                    <button id="toggle-watched" class="${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'remove-from-watched' : 'add-to-watched'}" title="${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'Remove from watched' : 'Add to watched'}">
+                        <i class="${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'fas fa-eye' : 'far fa-eye'}"></i></button>
+                </section>
             </section>
         `;
-        var documentMain = document.getElementById('movie-info');
-        documentMain.innerHTML += `
-        <section id="comments-section-add" style="display: ${movieInFavourites(movieInfo.Title, movieInfo.Year) ? 'flex' : 'none'};">
+        var documentCommentSection = document.getElementById('comments');
+        documentCommentSection.innerHTML += `
+        <section id="comments-section-add" style="display: ${movieInWatched(movieInfo.Title, movieInfo.Year) ? 'flex' : 'none'};">
             <h3>Leave a comment</h3>
             <section id="leave-comment-section">
                 <section id="comment-textarea">
                     <textarea id="comment-input" placeholder="Add a comment (Max 200 characters)" maxlength="200" rows="4"></textarea>
                     <div id="characters-count">0/200</div>
                 </section>
-                <button id="save-comment-btn">Save Comment</button>
+                <button id="save-comment-btn"><i class="fas fa-paper-plane"></i></button>
             </section>
         </section>
         
@@ -108,8 +113,25 @@ document.addEventListener('DOMContentLoaded', async function () {
     } else {
         alert('Failed to fetch movie info. Please try again later.');
     }
+
+    moveTitleBasedOnScreenWidth();
 });
 
+function moveTitleBasedOnScreenWidth() {
+    const titleElement = document.getElementById('title');
+    const movieInfoLeft = document.getElementById('movie-info-left');
+    const infoSection = document.getElementById('info-section');
+    
+    if (window.innerWidth < 900) {
+        if (!movieInfoLeft.contains(titleElement)) {
+            movieInfoLeft.insertBefore(titleElement, movieInfoLeft.firstChild);
+        }
+    } else {
+        if (!infoSection.contains(titleElement)) {
+            infoSection.insertBefore(titleElement, infoSection.firstChild);
+        }
+    }
+}
 
 function toggleCommentSection(title, year) {
     const commentSection = document.getElementById('comments-section-add');
@@ -130,28 +152,32 @@ function movieInWatched(title, year) {
 function toggleFavourites(title, year, button) {
     if (button.classList.contains('add-to-favourites')) {
         addMovieToFavourites(title, year);
-        button.textContent = 'Remove from favourites';
+        button.innerHTML = '<i class="fas fa-heart"></i>';
         button.classList.remove('add-to-favourites');
         button.classList.add('remove-from-favourites');
+        button.title = 'Remove from favourites';
     } else if (button.classList.contains('remove-from-favourites')) {
         removeMovieFromFavourites(title, year);
-        button.textContent = 'Add to favourites';
+        button.innerHTML = '<i class="far fa-heart"></i>';
         button.classList.remove('remove-from-favourites');
         button.classList.add('add-to-favourites');
+        button.title = 'Add to favourites';
     }
 }
 
 function toggleWatched(title, year, button) {
     if (button.classList.contains('add-to-watched')) {
         addMovieToWatched(title, year);
-        button.textContent = 'Remove from watched';
+        button.innerHTML = '<i class="fas fa-eye"></i>';
         button.classList.remove('add-to-watched');
         button.classList.add('remove-from-watched');
+        button.title = 'Remove from watched';
     } else if (button.classList.contains('remove-from-watched')) {
         removeMovieFromWatched(title, year);
-        button.textContent = 'Add to watched';
+        button.innerHTML = '<i class="far fa-eye"></i>';
         button.classList.remove('remove-from-watched');
         button.classList.add('add-to-watched');
+        button.title = 'Add to watched';
     }
 }
 
@@ -229,7 +255,13 @@ function displayComments(title, year) {
     if (movieComments && movieComments.comments.length > 0) {
         movieComments.comments.forEach(comment => {
             const li = document.createElement('li');
-            li.textContent = `${comment.author} (${new Date(comment.date).toLocaleString()}): ${comment.text}`;
+            li.innerHTML = `
+            <div class="comment-header">
+                <p><span class="comment-author">${comment.author}<br></span>
+                <span class="comment-date">${new Date(comment.date).toLocaleString()}</span></p>
+            </div>
+            <p class="comment-text">${comment.text}</p>
+            `;
             commentsList.appendChild(li);
         });
     } else {
