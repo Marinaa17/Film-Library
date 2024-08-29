@@ -6,8 +6,6 @@ body {
 
 #header {
     color: white;
-    /*justify-content: space-between;*/
-    margin: 60px;
 }
 
 #header h1 {
@@ -16,7 +14,7 @@ body {
 }
 
 main {
-    margin: 20px;
+    margin: 50px;
     display: flex;
     justify-content: center;
     color:  #1A1E25;
@@ -33,7 +31,6 @@ main {
 img {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
     margin: 10px;
 }
 
@@ -48,9 +45,9 @@ section {
 }
 
 label {
-    margin: 4px;
-    color:  #1A1E25;
     text-align: left;
+    margin-right: 8px;
+    color:  #1A1E25;
 }
 
 input {
@@ -59,32 +56,9 @@ input {
     border-radius: 4px;
 }
 
-button {
-    padding: 12px 20px;
-    margin: 20px; 
-    background-color: #F3A712;
-    color: #232323;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    min-width: 120px;
-} 
-
-button:hover {
-    background-color: #f7bd4b;
-    color: #2E3A6C;
-}
-
 p {
     margin: 10px;
 }
-
-/*.psw {
-    margin-top: 20px;
-    text-align: center;    Никъде не се използва
-    color: #666666;
-}*/
 
 .error-message {
     color: red;

@@ -1,5 +1,5 @@
-const loggedInUserEmail = getLoggedInUserEmail();
-const userData = getUserData(loggedInUserEmail);
+const loggedInUsername = localStorage.getItem('loggedInUser');
+const userData = getUserData(loggedInUsername);
 
 document.addEventListener('DOMContentLoaded', function () {
     const watchedMoviesMain = document.getElementById('watched-movies');
@@ -73,11 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-function getUserData(loggedInUserEmail) {
-    const userDataString = localStorage.getItem(loggedInUserEmail);
-    return userDataString ? JSON.parse(userDataString) : { email: '', password: '', favourites: [], watched: [], addedMovies: [] };
-}
-
-function getLoggedInUserEmail() {
-    return localStorage.getItem('loggedInUserEmail');
+function getUserData(loggedInUsername) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    return users.find(user => user.username === loggedInUsername) || { username: '', email: '', password: '', favourites: [], watched: [], addedMovies: [] };
 }
