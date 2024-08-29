@@ -198,7 +198,7 @@ function addMovieToFavourites(title, year) {
     if (user) {
         const movieInfo = { title: title, year: year };
         user.favourites.push(movieInfo);
-        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('users', JSON.stringify(user));
     }
 }
 
@@ -209,7 +209,7 @@ function removeMovieFromFavourites(title, year) {
         const indexToRemove = user.favourites.findIndex(movie => movie.title === title && movie.year === year);
         if (indexToRemove !== -1) {
             user.favourites.splice(indexToRemove, 1);
-            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('users', JSON.stringify(user));
         }
     }
 }
@@ -220,7 +220,7 @@ function addMovieToWatched(title, year) {
     if (user) {
         const movieInfo = { title: title, year: year };
         user.watched.push(movieInfo);
-        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('users', JSON.stringify(user));
     }
 }
 
@@ -231,7 +231,7 @@ function removeMovieFromWatched(title, year) {
         const indexToRemove = user.watched.findIndex(movie => movie.title === title && movie.year === year);
         if (indexToRemove !== -1) {
             user.watched.splice(indexToRemove, 1);
-            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('users', JSON.stringify(user));
         }
     }
 }

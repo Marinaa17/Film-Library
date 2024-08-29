@@ -24,6 +24,21 @@ a {
     color: #fff;
 }
 
+#header {
+    background-image: linear-gradient(rgb(50, 60, 110), rgb(35, 45, 80));
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    transition: background-image 0.3s ease; 
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 12px;
+    z-index: 100;
+}
+
+
 #logo {
     height: 40px; 
     width: auto;
@@ -145,11 +160,14 @@ ul button:hover {
     cursor: pointer;
     min-width: 120px;
     margin: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 } 
 
-.orange-button :hover {
+.orange-button:hover {
     background-color: #f7bd4b;
     color: #2E3A6C;
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 @media screen and (max-width: 900px) {

@@ -1,8 +1,8 @@
 const loggedInUsername = localStorage.getItem('loggedInUser');
-const userData = getUserData(loggedInUsername);
 
 document.addEventListener('DOMContentLoaded', function () {
     const watchedMoviesMain = document.getElementById('watched-movies');
+    const userData = getUserData(loggedInUsername);
     const watchedMovies = userData.watched;
 
     if (!watchedMovies || watchedMovies.length === 0) {
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 listItem.textContent = `${movie.Title} (${movie.Year})`;
                 const buttonMoreInfo = document.createElement('button');
                 buttonMoreInfo.textContent = 'More info';
+                buttonMoreInfo.classList.add('orange-button');
                 buttonMoreInfo.classList.add('more-info-btn');
                 listItem.appendChild(buttonMoreInfo);
                 watchedMoviesList.appendChild(listItem);
@@ -38,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const movieList = document.getElementById('watched-movies-list');
+    if (!movieList) {
+        return;
+    }
 
     async function fetchMovieInfo(title, year) {
         const apiKey = 'ff43acd6';

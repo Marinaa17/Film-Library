@@ -6,12 +6,27 @@ h3 {
     font-size: 30px;
 }
 
-#movie-info-section {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    justify-content: center;
-    margin: 50px;
+
+.comment-header {
+    color: #ccc;
+}
+
+.comment-author {
+    font-weight: bold;
+    font-size: 12pt;
+}
+
+.comment-date {
+    font-size: 10pt;
+    color: rgb(255, 255, 255, 0.75);
+    font-style: italic;
+}
+
+.comment-text {
+    font-size: 16pt;
+    text-align: left;
+    margin: 0;
+    text-align: left;
 }
 
 #comments {
@@ -20,6 +35,82 @@ h3 {
     gap: 20px;
     justify-content: center;
     margin: 0 100px 100px 100px;
+}
+
+#comments-section-add {
+    flex-direction: column;
+    gap: 20px;
+    justify-content: left;
+}
+
+#comment-textarea {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#characters-count {
+    text-align: right;
+}
+
+#save-comment-btn {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    max-height: 50px;
+}
+
+#save-comment-btn:hover {
+    cursor: pointer;
+}
+
+#leave-comment-section {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+#comment-textarea {
+    width: 100%;
+}
+
+#comment-input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    resize: none;
+    font-family: inherit;
+}
+
+#comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#comments-list li {
+    display: flex;
+    flex-direction: column;
+    background-color: #2E3A6C;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    align-items: baseline;
+    margin: 0;
+}
+
+#movie-info-section {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    margin: 50px;
 }
 
 #movie-info-left {
@@ -60,8 +151,6 @@ h3 {
     padding-bottom: 10px;
 }
 
-
-
 #movie-info-left img {
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
@@ -81,22 +170,6 @@ h3 {
     flex-direction: column;
     gap: 20px;
     align-items: center;
-}
-
-#comments-section-add {
-    flex-direction: column;
-    gap: 20px;
-    justify-content: left;
-}
-
-#comment-textarea {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#characters-count {
-    text-align: right;
 }
 
 #toggle-favourites, #toggle-watched {
@@ -158,80 +231,6 @@ h3 {
     color: rgb(201, 206, 210);
 }
 
-#save-comment-btn {
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    font-size: 24px;
-    max-height: 50px;
-}
-
-#save-comment-btn:hover {
-    cursor: pointer;
-}
-
-#leave-comment-section {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: space-between;
-}
-
-#comment-textarea {
-    width: 100%;
-}
-
-#comment-input {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 10px;
-    border: none;
-    resize: none;
-    font-family: inherit;
-}
-
-#comments-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#comments-list li {
-    display: flex;
-    flex-direction: column;
-    background-color: #2E3A6C;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    color: #fff;
-    font-family: Arial, sans-serif;
-    align-items: baseline;
-    margin: 0;
-}
-
-.comment-header {
-    color: #ccc;
-}
-
-.comment-author {
-    font-weight: bold;
-    font-size: 12pt;
-}
-
-.comment-date {
-    font-size: 10pt;
-    color: rgb(255, 255, 255, 0.75);
-    font-style: italic;
-}
-
-.comment-text {
-    font-size: 16pt;
-    text-align: left;
-    margin: 0;
-    text-align: left;
-}
-
 @media screen and (max-width: 900px) {
     #movie-info-section {
         flex-direction: column;
@@ -254,14 +253,6 @@ h3 {
 }
 
 @media screen and (max-width: 600px) {
-    #comment-textarea {
-        width: 100%;
-    }
-
-    #comment-input {
-        margin: 0;
-    }
-
     h3 {
         font-size: 28px;
     }
@@ -270,6 +261,14 @@ h3 {
         font-size: 16px;
     }
     
+    #comment-textarea {
+        width: 100%;
+    }
+
+    #comment-input {
+        margin: 0;
+    }
+
     #comment-input {
         font-size: 14px;
     }

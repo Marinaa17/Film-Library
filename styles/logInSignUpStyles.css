@@ -4,15 +4,6 @@ body {
 	text-align: center;
 }
 
-#header {
-    color: white;
-}
-
-#header h1 {
-    font-size: 40px;
-    font-weight: bold;
-}
-
 main {
     margin: 50px;
     display: flex;
@@ -20,23 +11,10 @@ main {
     color:  #1A1E25;
 }
 
-#form {
-    background-color: #ffffff;
-    width: 400px;
-    padding: 20px;
-    border-radius: 8px;
-    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-}
-
 img {
     width: 80px;
     height: 80px;
     margin: 10px;
-}
-
-#formHeader {
-    margin: 0px;
-    margin-bottom: 20px;
 }
 
 section {
@@ -64,6 +42,48 @@ p {
     color: red;
     margin: 4px;
     font-size: 12px;
+}
+
+.orange-button {
+    padding: 12px 20px;
+    background-color: #F3A712;
+    color: #232323;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    min-width: 120px;
+    margin: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+} 
+
+.orange-button:hover {
+    background-color: #f7bd4b;
+    color: #2E3A6C;
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+#header {
+    color: white;
+}
+
+#header h1 {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#form {
+    background-color: #ffffff;
+    width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#formHeader {
+    margin: 0px;
+    margin-bottom: 20px;
 }
 
 #footer {

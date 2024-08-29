@@ -1,8 +1,8 @@
 const loggedInUsername = localStorage.getItem('loggedInUser');
-const userData = getUserData(loggedInUsername);
 
 document.addEventListener('DOMContentLoaded', function () {
     const favoutieMoviesMain = document.getElementById('favourite-movies');
+    const userData = getUserData(loggedInUsername);
     const favouriteMovies = userData.favourites;
     
     if (!favouriteMovies || favouriteMovies.length === 0) {
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 listItem.textContent = `${movie.Title} (${movie.Year})`;
                 const buttonMoreInfo = document.createElement('button');
                 buttonMoreInfo.textContent = 'More info';
+                buttonMoreInfo.classList.add('orange-button');
                 buttonMoreInfo.classList.add('more-info-btn');
                 listItem.appendChild(buttonMoreInfo);
                 favoutieMoviesList.appendChild(listItem);
@@ -38,6 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const movieList = document.getElementById('favourite-movies-list');
+
+    if (!movieList) {
+        return;
+    }
 
     async function fetchMovieInfo(title, year) {
         const apiKey = 'ff43acd6';
@@ -57,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     movieList.addEventListener('click', async function (event) {
-        if (event.target.classList.contains('more-info-btn')) {
+        if (event.target.classList.contains('orange-button')) {
             const listItem = event.target.closest('li');
             const titleYear = listItem.textContent.split(' (');
             const title = titleYear[0];

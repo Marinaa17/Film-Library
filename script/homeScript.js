@@ -21,14 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 fetch(apiUrl)
                     .then(response => response.json())
                     .then(apiData => {
-                        // Check if the API returned a valid movie object
                         if (apiData.Response === "True") {
-                            // Create a list item for each movie
                             const movieItem = document.createElement('li');
                             movieItem.className = 'movie-item';
 
                             const movieImage = document.createElement('img');
-                            movieImage.src = apiData.Poster !== "N/A" ? apiData.Poster : 'placeholder.jpg'; // Use a placeholder if no poster found
+                            movieImage.src = apiData.Poster !== "N/A" ? apiData.Poster : '../images/placeholder.jpg';
                             movieImage.alt = movie.title;
 
                             const movieTitle = document.createElement('label');
@@ -36,12 +34,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                             const buttonMoreInfo = document.createElement('button');
                             buttonMoreInfo.textContent = 'More Info';
+                            buttonMoreInfo.classList.add('orange-button');
                             buttonMoreInfo.classList.add('more-info-btn');
 
                             movieItem.appendChild(movieImage);
                             movieItem.appendChild(movieTitle);
                             movieItem.appendChild(buttonMoreInfo);
-
                             movieList.appendChild(movieItem);
 
                             //default sorting 
@@ -156,7 +154,7 @@ function getLoggedInUser() {
 let currentSlide = 0;
 const slides = document.querySelectorAll('.carousel__slide');
 const totalSlides = slides.length;
-const slideInterval = 6000; // 6 seconds
+const slideInterval = 6000;
 
 function showSlide(index) {
     if (index >= totalSlides) {
@@ -178,8 +176,5 @@ function prevSlide() {
     showSlide(currentSlide - 1);
 }
 
-// Initialize the carousel to show the first slide
 showSlide(currentSlide);
-
-// Set interval to automatically change slides
 setInterval(nextSlide, slideInterval);

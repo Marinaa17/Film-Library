@@ -1,5 +1,4 @@
-const loggedInUserEmail = getLoggedInUserEmail();
-const userData = getUserData(loggedInUserEmail);
+const loggedInUsername = localStorage.getItem('loggedInUser');
 
 document.getElementById('movie-form').addEventListener('submit',async function(event) {
     event.preventDefault();
@@ -62,6 +61,12 @@ async function checkIfMovieExistsInJson(movieTitle, movieYear) {
 }
 
 function checkIfMovieExistsInLocalStorage(movieTitle, movieYear) {
+    const userData = getUserData(loggedInUsername);
+    if (!userData.username) {
+        console.error('User not found.');
+        return false; 
+    }
+
     try {
         const localMovies = userData.addedMovies || [];
         const movieExists = localMovies.some(movie => movie.title === movieTitle && movie.year === movieYear);
@@ -74,24 +79,29 @@ function checkIfMovieExistsInLocalStorage(movieTitle, movieYear) {
 }
 
 function addMovieToLocalStorage(newMovie) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(user => user.username === loggedInUsername);
+
+    if (userIndex === -1) {
+        console.error('User not found.');
+        return;
+    }
+
     try {
-        const existingMovies = userData.addedMovies || [];
+        const existingMovies = users[userIndex].addedMovies || [];
         existingMovies.push(newMovie);
         
-        userData.addedMovies = existingMovies;
-        localStorage.setItem(loggedInUserEmail, JSON.stringify(userData));
-       
+        users[userIndex].addedMovies = existingMovies;
+        localStorage.setItem('users', JSON.stringify(users));
+
         alert('Movie added successfully.');
     } catch (error) {
         console.error('Error adding movie to local storage array:', error);
     }
 }
 
-function getUserData(loggedInUserEmail) {
-    const userDataString = localStorage.getItem(loggedInUserEmail);
-    return userDataString ? JSON.parse(userDataString) : { email: '', password: '', favourites: [], watched: [], addedMovies: [] };
-}
 
-function getLoggedInUserEmail() {
-    return localStorage.getItem('loggedInUserEmail');
+function getUserData(loggedInUsername) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    return users.find(user => user.username === loggedInUsername) || { username: '', email: '', password: '', favourites: [], watched: [], addedMovies: [] };
 }
