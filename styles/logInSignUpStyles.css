@@ -13,7 +13,6 @@ body {
 
 #header {
     color: white;
-    justify-content: space-between;
 }
 
 #header h1 {
@@ -23,7 +22,7 @@ body {
 }
 
 main {
-    margin: 0px;
+    margin: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,7 +33,6 @@ main {
 #registrationForm {
     background-color: #ffffff;
     width: 400px;
-    max-width: 400px;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -43,7 +41,6 @@ main {
 img {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
     margin: 10px;
 }
 
@@ -57,32 +54,15 @@ section {
 }
 
 label {
+    text-align: left;
     margin-right: 8px;
     color:  #1A1E25;
-    text-align: left;
 }
 
 input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-button {
-    padding: 12px 20px;
-    background-color: #F3A712;
-    color: #232323;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    min-width: 120px;
-    margin: 20px; 
-} 
-
-button:hover {
-    background-color: #f7bd4b;
-    color: #2E3A6C;
 }
 
 p {

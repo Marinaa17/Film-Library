@@ -19,41 +19,61 @@ h3 {
     flex-direction: column;
     gap: 20px;
     justify-content: center;
-    margin: 200px;
+    margin: 0 100px 100px 100px;
+}
+
+#movie-info-left {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    justify-content: center;
+    margin: 50px;
+    padding: 30px;
+    background-color: #2E3A6C; 
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+#movie-info-left:hover {
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7);
 }
 
 #movie-info {
     display: flex;
-    flex: 2;
     flex-direction: column;
-    gap: 50px;
-    margin: 20px;
+    gap: 30px; 
+    color: #E0E0E0;
+    font-family: 'Poppins', sans-serif;
 }
 
 #title {
-    margin: 20px;
+    font-size: 32px;
     text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif; 
-    font-size: 24pt;
-    font-weight: bold;
-    letter-spacing: 1px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #fff;
     text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
 }
 
-#movie-info section {
-    margin: 0px 20px;
-}
+
 
 #movie-info-left img {
     border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin: 10px;
+    z-index: 10;
 }
 
-#info-section {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
+#movie-info-left img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8);
+    z-index: 20;
 }
 
 #movie-info-left {
@@ -87,21 +107,27 @@ h3 {
     border: none;
     width: 50px;
     color: #fff;
-    transition: background-color 0.3s ease;
+    z-index: 5;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 #toggle-favourites i, #toggle-watched i {
     font-size: 18px;
 }
 
+#toggle-favourites:hover, #toggle-watched:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    cursor: pointer;  
+}
+
+
 #toggle-favourites.add-to-favourites:hover, #toggle-watched.add-to-watched:hover {
-    background-color: #4CAF50;
-    cursor: pointer;
+    background-color: #F44336 ;
 }
 
 #toggle-favourites.remove-from-favourites:hover, #toggle-watched.remove-from-watched:hover {
-    background-color: #F44336;
-    cursor: pointer;
+    background-color: #4CAF50;
 }
 
 #toggle-favourites.add-to-favourites,
@@ -221,6 +247,10 @@ h3 {
     #comments-section ul {
         margin: 0;
     }
+
+    #comments {
+        margin: 50px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -242,5 +272,18 @@ h3 {
     
     #comment-input {
         font-size: 14px;
+    }
+
+    #movie-info-left {
+        margin: 0;
+        padding: 20px;
+    }
+
+    #title {
+        font-size: 24px;
+    }
+
+    #movie-poster {
+        width: 100%;
     }
 }

@@ -8,7 +8,7 @@ p {
 
 body {
     font-family: Arial, sans-serif;
-	background-color: rgb(26, 30, 37);
+	background-color: #1a1e25;
 	text-align: center;
     min-width: 340px;
 }
@@ -25,9 +25,9 @@ a {
 }
 
 #logo {
-    height: 50px; 
+    height: 40px; 
     width: auto;
-    margin: 20px/* 0px 40px 20px*/; 
+    margin: 20px; 
 }
 
 #navigation-tabs {
@@ -132,6 +132,23 @@ ul button {
 
 ul button:hover {
     background-color: #fff;
+    color: #2E3A6C;
+}
+
+.orange-button {
+    padding: 12px 20px;
+    background-color: #F3A712;
+    color: #232323;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    min-width: 120px;
+    margin: 20px;
+} 
+
+.orange-button :hover {
+    background-color: #f7bd4b;
     color: #2E3A6C;
 }
 
