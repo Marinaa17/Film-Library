@@ -1,5 +1,5 @@
-const loggedInUserEmail = getLoggedInUserEmail();
-const userData = getUserData(loggedInUserEmail);
+const loggedInUser = getLoggedInUser();
+const userData = getUserData(loggedInUser);
 
 document.addEventListener('DOMContentLoaded', function () {
     const movieList = document.getElementById('movie-list');
@@ -14,13 +14,49 @@ document.addEventListener('DOMContentLoaded', function () {
             allMovies.sort((a, b) => a.title.localeCompare(b.title));
 
             allMovies.forEach(movie => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${movie.title} (${movie.year})`;
-                var buttonMoreInfo = document.createElement('button');
-                buttonMoreInfo.textContent = 'More info';
-                buttonMoreInfo.classList.add('more-info-btn');
-                listItem.appendChild(buttonMoreInfo);
-                movieList.appendChild(listItem);
+
+                const apiKey = 'ff43acd6';
+                const apiUrl = `https://www.omdbapi.com/?t=${movie.title}&y=${movie.year}&apikey=${apiKey}`;
+
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(apiData => {
+                        // Check if the API returned a valid movie object
+                        if (apiData.Response === "True") {
+                            // Create a list item for each movie
+                            const movieItem = document.createElement('li');
+                            movieItem.className = 'movie-item';
+
+                            const movieImage = document.createElement('img');
+                            movieImage.src = apiData.Poster !== "N/A" ? apiData.Poster : 'placeholder.jpg'; // Use a placeholder if no poster found
+                            movieImage.alt = movie.title;
+
+                            const movieTitle = document.createElement('label');
+                            movieTitle.textContent = `${movie.title} (${movie.year})`;
+
+                            const buttonMoreInfo = document.createElement('button');
+                            buttonMoreInfo.textContent = 'More Info';
+                            buttonMoreInfo.classList.add('more-info-btn');
+
+                            movieItem.appendChild(movieImage);
+                            movieItem.appendChild(movieTitle);
+                            movieItem.appendChild(buttonMoreInfo);
+
+                            movieList.appendChild(movieItem);
+
+                            //default sorting 
+                            const movies = Array.from(movieList.children);
+                            movies.sort((a, b) => a.textContent.trim().toLowerCase().localeCompare(b.textContent.trim().toLowerCase()));
+                            movieList.innerHTML = '';
+                            movies.forEach(movie => {
+                                movieList.appendChild(movie);
+                            });
+                            
+                        } else {
+                            console.error(`No data found for ${movie.title}`);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching movie data:', error));
             });
         })
         .catch(error => console.error('Error fetching or displaying movies:', error));
@@ -106,13 +142,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-function getUserData(loggedInUserEmail) {
-    const userDataString = localStorage.getItem(loggedInUserEmail);
-    return userDataString ? JSON.parse(userDataString) : { email: '', password: '', favourites: [], watched: [], addedMovies: [] };
+function getUserData(loggedInUser) {
+    const allUsersString = localStorage.getItem("users");
+    const allUsers = JSON.parse(allUsersString);
+    const userData = allUsers.find(user => user.username === loggedInUser);
+    return userData || { username: '', email: '', password: '', favourites: [], watched: [], addedMovies: [] };
 }
 
-function getLoggedInUserEmail() {
-    return localStorage.getItem('loggedInUserEmail');
+function getLoggedInUser() {
+    return localStorage.getItem('loggedInUser');
 }
 
 let currentSlide = 0;
