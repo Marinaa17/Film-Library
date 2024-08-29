@@ -19,8 +19,9 @@ function validateSignUp() {
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirmPassword").value;
 
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    var usernameAndPasswordRegex = /^[A-Za-z0-9]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^[A-Za-z0-9]+$/;
+    const usernameRegex = /^[a-z0-9._-]+$/; 
 
     if (username === "") {
         document.getElementById("usernameErrorMessage").innerText = "Username is required.";
@@ -30,8 +31,8 @@ function validateSignUp() {
         document.getElementById("usernameErrorMessage").innerText = "Username should be at least 3 characters.";
         passed=false;
     }
-    else if (!usernameAndPasswordRegex.test(username)) { 
-        document.getElementById("usernameErrorMessage").innerText = "The username should contain only Latin letters or numbers.";
+    else if (!usernameRegex.test(username)) { 
+        document.getElementById("usernameErrorMessage").innerText = "The username should contain only lowercase Latin letters, symbols and numbers.";
         passed = false;
     }
 
@@ -53,7 +54,7 @@ function validateSignUp() {
         document.getElementById("passwordErrorMessage").innerText = "Password should be at least 6 characters.";
         passed=false;
     }
-    else if (!usernameAndPasswordRegex.test(password)) { 
+    else if (!passwordRegex.test(password)) { 
         document.getElementById("passwordErrorMessage").innerText = "The password should contain only Latin letters or numbers.";
         passed = false;
     }
