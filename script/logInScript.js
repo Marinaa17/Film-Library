@@ -14,7 +14,7 @@ function getUserData(email) {
     const users = usersString ? JSON.parse(usersString) : [];
 
     const user = users.find(user => user.email === email);
-
+    
     return user || null;
 }
 
@@ -43,10 +43,10 @@ function loginUser() {
         return;
     }
 
-    storeLoggedInUserEmail(userData.username);
+    storeLoggedInUser(userData.username);
     window.location.href = "home.html";
 }
 
-function storeLoggedInUserEmail(username) {
+function storeLoggedInUser(username) {
     localStorage.setItem('loggedInUser', username);
 }

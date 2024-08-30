@@ -193,48 +193,60 @@ function toggleWatched(title, year, button) {
 }
 
 function addMovieToFavourites(title, year) {
-    const user = getUserData(loggedInUsername);
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(user => user.username === loggedInUsername);
 
-    if (user) {
-        const movieInfo = { title: title, year: year };
-        user.favourites.push(movieInfo);
-        localStorage.setItem('users', JSON.stringify(user));
+    if (userIndex === -1) {
+        console.error('User not found.');
+        return;
     }
+
+    users[userIndex].favourites.push({ title: title, year: year });
+    localStorage.setItem('users', JSON.stringify(users));
 }
 
 function removeMovieFromFavourites(title, year) {
-    const user = getUserData(loggedInUsername);
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(user => user.username === loggedInUsername);
 
-    if (user) {
-        const indexToRemove = user.favourites.findIndex(movie => movie.title === title && movie.year === year);
-        if (indexToRemove !== -1) {
-            user.favourites.splice(indexToRemove, 1);
-            localStorage.setItem('users', JSON.stringify(user));
-        }
+    if (userIndex === -1) {
+        console.error('User not found.');
+        return;
     }
+
+    // Remove the movie from the favourites list
+    users[userIndex].favourites = users[userIndex].favourites.filter(movie => !(movie.title === title && movie.year === year));
+    localStorage.setItem('users', JSON.stringify(users));
 }
 
-function addMovieToWatched(title, year) {
-    const user = getUserData(loggedInUsername);
 
-    if (user) {
-        const movieInfo = { title: title, year: year };
-        user.watched.push(movieInfo);
-        localStorage.setItem('users', JSON.stringify(user));
+function addMovieToWatched(title, year) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(user => user.username === loggedInUsername);
+
+    if (userIndex === -1) {
+        console.error('User not found.');
+        return;
     }
+
+    users[userIndex].watched.push({ title: title, year: year });
+    localStorage.setItem('users', JSON.stringify(users));
 }
 
 function removeMovieFromWatched(title, year) {
-    const user = getUserData(loggedInUsername);
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(user => user.username === loggedInUsername);
 
-    if (user) {
-        const indexToRemove = user.watched.findIndex(movie => movie.title === title && movie.year === year);
-        if (indexToRemove !== -1) {
-            user.watched.splice(indexToRemove, 1);
-            localStorage.setItem('users', JSON.stringify(user));
-        }
+    if (userIndex === -1) {
+        console.error('User not found.');
+        return;
     }
+
+    // Remove the movie from the watched list
+    users[userIndex].watched = users[userIndex].watched.filter(movie => !(movie.title === title && movie.year === year));
+    localStorage.setItem('users', JSON.stringify(users));
 }
+
 
 function saveComment(title, year) {
     const commentInput = document.getElementById('comment-input');
